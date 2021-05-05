@@ -1,0 +1,36 @@
+-- local nvim_lsp = require('lspconfig')
+--
+-- nvim_lsp.tsserver.setup {
+--   cmd = { 'typescript-language-server', '--stdio' },
+--   root_dir = nvim_lsp.util.root_pattern('package.json', 'tsconfig.json', '.git'),
+--   filetypes = {
+--     'javascript',
+--     'typescript',
+--   },
+--   on_attach = function(client, bufnr)
+--     local opts = { noremap = true, silent = true }
+--
+--     client.resolved_capabilities.document_formatting = false
+--
+--     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+--     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+--     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+--     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+--     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+--   end
+-- }
+--
+-- nvim_lsp.vuels.setup {
+--   cmd = { 'vls', '--stdio' },
+--   on_attach = function(client, bufnr)
+--     local opts = { noremap = true, silent = true }
+--
+--     client.resolved_capabilities.document_formatting = false
+--
+--     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+--     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+--     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+--     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+--     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+--   end
+-- }

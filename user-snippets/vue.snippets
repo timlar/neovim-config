@@ -1,0 +1,37 @@
+extends html, javascript, css
+
+priority -50
+
+snippet vref "Create ref" b
+const ${1} = ref(${2})
+endsnippet
+
+snippet vreactive "Reactive" b
+const ${1} = reactive(${2})
+endsnippet
+
+snippet vcomputed "Computed" b
+const ${1} = computed(() => ${2})
+endsnippet
+
+snippet vwatch "Watch" b
+const ${1} = watch(${2}, ($2, $2Prev) => ${3})
+endsnippet
+
+snippet vtemplate "Template" b
+<template>
+	${1}
+</template>
+endsnippet
+
+snippet vscript "Script" b
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+	${1}
+})
+</script>
+endsnippet
+
+# vim: set ts=2 sw=2 noexpandtab:
