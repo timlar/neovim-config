@@ -1,10 +1,4 @@
-require 'colorizer'.setup({
-  'css',
-  'scss',
-  'javascript',
-  'typescript',
-  'vue'
-}, { mode = 'foreground' })
+require 'colorizer'.setup({}, { mode = 'foreground' })
 
 -- Gruvbox theme colors
 --

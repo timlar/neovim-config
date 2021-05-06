@@ -83,7 +83,7 @@ vim.o.scrolljump = 0
 vim.o.scrolloff = 0
 
 vim.o.splitbelow = true
-vim.o.splitright = false
+vim.o.splitright = true
 
 vim.o.equalalways = false
 
@@ -141,7 +141,7 @@ vim.o.cmdheight = 2
 vim.wo.signcolumn = 'yes' -- Always show the signcolumn
 
 if vim.fn.substitute(vim.fn.system('uname'), '\n', '', '') == 'Darwin' then
-  vim.o.clipboard = 'unnamed' -- Use system clipboard
+  vim.o.clipboard = 'unnamedplus' -- Use system clipboard
 end
 
 -- Set current directory as root

@@ -101,6 +101,9 @@ map('', '<f9>', [[:%s/:\([^ ]*\)\(\s*\)=>/\1:/gc<cr>]], opts)
 -- Generate ctags
 map('', '<f10>', ':!ctags -R --exclude=.git --exclude=logs --exclude=doc --exclude=tmp . $(bundle list --paths)<cr>', opts)
 
+-- Open links in browser
+map('n', 'gx', 'yiW:!open <cWORD><cr>', opts)
+
 -- Toggle true/false value
 map(
   'n',
