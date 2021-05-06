@@ -2,18 +2,20 @@ local gl = require('galaxyline')
 
 local colors = {
   transparent = 'NONE',
-  bg = '#3c3836',
-  yellow = '#fabd2f',
-  cyan = '#8ec07c',
-  green = '#b8bb26',
-  orange = '#fe8019',
-  purple = '#d3869b',
-  magenta = '#d3869b',
-  grey_dark = '#504945',
+  bg          = '#3c3836',
+  black       = '#282828',
+  blue        = '#83a598',
+  cyan        = '#8ec07c',
+  green       = '#b8bb26',
+  grey        = '#bdae93',
+  grey_dark   = '#504945',
   grey_medium = '#665c54',
-  grey = '#bdae93',
-  blue = '#83a598',
-  red = '#fb4934'
+  magenta     = '#d3869b',
+  orange      = '#fe8019',
+  purple      = '#d3869b',
+  red         = '#fb4934',
+  white       = '#ebdbb2',
+  yellow      = '#fabd2f'
 }
 
 local condition = require('galaxyline.condition')
@@ -40,8 +42,8 @@ section.left[1] = {
       return '  ' .. modes[vim.fn.mode()].text
     end,
     separator = ' ',
-    highlight = { colors.bg, colors.grey },
-    separator_highlight = { colors.grey, colors.grey },
+    highlight = { colors.black, colors.grey_medium },
+    separator_highlight = { colors.grey_medium, colors.grey_medium },
   }
 }
 
@@ -49,9 +51,9 @@ section.left[2] = {
   FileName = {
     provider = 'FileName',
     condition = condition.buffer_not_empty,
-    highlight = { colors.bg, colors.grey },
+    highlight = { colors.white, colors.grey_medium },
     separator = '',
-    separator_highlight = { colors.grey, colors.bg },
+    separator_highlight = { colors.grey_medium, colors.bg },
   }
 }
 
@@ -156,8 +158,8 @@ section.right[6] = {
     provider = 'LineColumn',
     separator = ' ',
     icon = ' ',
-    separator_highlight = { colors.grey_medium, colors.bg },
-    highlight = { colors.grey, colors.grey_medium }
+    separator_highlight = { colors.grey_dark, colors.bg },
+    highlight = { colors.grey, colors.grey_dark }
   }
 }
 
@@ -165,8 +167,8 @@ section.right[7] = {
   PerCent = {
     provider = 'LinePercent',
     separator = '',
-    separator_highlight = { colors.grey, colors.grey_medium },
-    highlight = { colors.grey, colors.grey_medium }
+    separator_highlight = { colors.grey, colors.grey_dark },
+    highlight = { colors.grey, colors.grey_dark }
   }
 }
 
@@ -188,15 +190,15 @@ section.right[8] = {
       return ' '
     end,
     separator = '',
-    highlight = { colors.grey, colors.grey },
-    separator_highlight = { colors.grey, colors.grey_medium }
+    highlight = { colors.grey, colors.grey_medium },
+    separator_highlight = { colors.grey_medium, colors.grey_dark }
   }
 }
 
 section.right[9] = {
   BufferType = {
     provider = 'FileTypeName',
-    highlight = { colors.bg, colors.grey }
+    highlight = { colors.white, colors.grey_medium }
   }
 }
 
@@ -204,8 +206,8 @@ section.right[10] = {
   FileEncode = {
     provider = 'FileEncode',
     separator = ' ',
-    separator_highlight = { colors.bg, colors.grey },
-    highlight = { colors.bg, colors.grey }
+    separator_highlight = { colors.grey, colors.grey_medium },
+    highlight = { colors.white, colors.grey_medium }
   }
 }
 
@@ -214,7 +216,7 @@ section.right[11] = {
     provider = function()
       return ' '
     end,
-    highlight = { colors.grey, colors.grey }
+    highlight = { colors.grey_medium, colors.grey_medium }
   }
 }
 
@@ -226,17 +228,17 @@ section.short_line_left[1] = {
       return ' '
     end,
     condition = condition.buffer_not_empty,
-    highlight = { colors.grey, colors.grey }
+    highlight = { colors.white, colors.grey_medium }
   }
 }
 
-section.short_line_left[3] = {
+section.short_line_left[2] = {
   FileName = {
     provider = 'FileName',
     condition = condition.buffer_not_empty,
-    highlight = { colors.bg, colors.grey },
+    highlight = { colors.white, colors.grey_medium },
     separator = '',
-    separator_highlight = { colors.grey, colors.bg },
+    separator_highlight = { colors.grey_medium, colors.bg },
   }
 }
 
@@ -249,8 +251,8 @@ section.short_line_right[1] = {
     end,
     condition = condition.buffer_not_empty,
     separator = '',
-    highlight = { colors.grey, colors.grey },
-    separator_highlight = { colors.grey, colors.bg }
+    highlight = { colors.grey_medium, colors.grey_medium },
+    separator_highlight = { colors.grey_medium, colors.bg }
   }
 }
 
@@ -258,7 +260,7 @@ section.short_line_right[2] = {
   BufferType = {
     provider = 'FileTypeName',
     condition = condition.buffer_not_empty,
-    highlight = { colors.bg, colors.grey }
+    highlight = { colors.white, colors.grey_medium }
   }
 }
 
@@ -268,6 +270,6 @@ section.short_line_right[3] = {
       return ' '
     end,
     condition = condition.buffer_not_empty,
-    highlight = { colors.grey, colors.grey }
+    highlight = { colors.grey_medium, colors.grey_medium }
   }
 }

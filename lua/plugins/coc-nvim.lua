@@ -1,3 +1,6 @@
+local opts = { noremap = true, silent = true }
+local map = vim.api.nvim_set_keymap
+
 -- TextEdit might fail if hidden is not set.
 vim.o.hidden = true
 
@@ -15,17 +18,17 @@ vim.o.updatetime = 500
 vim.o.shortmess = vim.o.shortmess..'c'
 
 -- Use `[g` and `]g` to navigate diagnostics
-vim.api.nvim_set_keymap('', '[g', '<Plug>(coc-diagnostic-prev)', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', ']g', '<Plug>(coc-diagnostic-next)', { noremap = true, silent = true })
+map('', '[g', '<Plug>(coc-diagnostic-prev)', opts)
+map('', ']g', '<Plug>(coc-diagnostic-next)', opts)
 
 --  GoTo code navigation.
-vim.api.nvim_set_keymap('', 'gd', '<Plug>(coc-definition)', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', 'gy', '<Plug>(coc-type-definition)', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', 'gi', '<Plug>(coc-implementation)', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', 'gr', '<Plug>(coc-references)', { noremap = true, silent = true })
+map('', 'gd', '<Plug>(coc-definition)', opts)
+map('', 'gy', '<Plug>(coc-type-definition)', opts)
+map('', 'gi', '<Plug>(coc-implementation)', opts)
+map('', 'gr', '<Plug>(coc-references)', opts)
 
 -- Use K to show documentation in preview window.
-vim.api.nvim_set_keymap('n', 'K', ':call CocAction("doHover")<cr>', { noremap = true, silent = true })
+map('n', 'K', ':call CocAction("doHover")<cr>', opts)
 
 -- vim.o.statusline = [[%{coc#status()}%{get(b:,'coc_current_function','')}]]..vim.o.statusline
 

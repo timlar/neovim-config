@@ -46,19 +46,14 @@ map('n', '<cr>', 'O<down><esc>', opts)
 map('n', '<s-cr>', 'O<down><esc>', opts)
 
 -- Moving between splits by <Opt+Arrows>
--- FIXME: Does'n work with nvim-tree plugin
---
--- map('', '<m-down>', '<c-w><down>', opts)
--- map('i', '<m-down>', '<esc><c-w><c-down>', opts)
---
--- map('', '<m-up>', '<c-w><up>', opts)
--- map('i', '<m-up>', '<esc><c-w><c-up>', opts)
---
--- map('', '<m-left>', '<c-w><left>', opts)
--- map('', '<m-left>', '<esc><c-w><c-left>', opts)
---
--- map('', '<m-right>', '<c-w><right>', opts)
--- map('', '<m-right>', '<esc><c-w><c-right>', opts)
+map('', '<m-down>', '<c-w>j', opts)
+map('i', '<m-down>', '<esc><c-w>j', opts)
+map('', '<m-up>', '<c-w>k', opts)
+map('i', '<m-up>', '<esc><c-w>k', opts)
+map('', '<m-left>', '<c-w>h', opts)
+map('i', '<m-left>', '<esc><c-w>h', opts)
+map('', '<m-right>', '<c-w>l', opts)
+map('i', '<m-right>', '<esc><c-w>l', opts)
 
 -- Move a visual block up and down
 map('v', 'J', ":m '>+1<cr>gv=gv", opts)

@@ -25,6 +25,12 @@ require('packer').startup(function()
   use { 'tpope/vim-rails', ft = { 'ruby' } }
 
   use {
+    'lukas-reineke/indent-blankline.nvim',
+    branch = 'lua',
+    config = function() require('plugins.indent-blankline') end
+  }
+
+  use {
     'junegunn/fzf.vim',
     config = function() require('plugins.fzf') end
   }
@@ -37,6 +43,11 @@ require('packer').startup(function()
       'kyazdani42/nvim-web-devicons',
       opt = true
     }
+  }
+
+  use {
+    'ntpeters/vim-better-whitespace',
+    config = function() require('plugins.vim-better-whitespace') end
   }
 
   use {

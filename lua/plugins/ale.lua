@@ -1,3 +1,6 @@
+local opts = { noremap = true, silent = true }
+local map = vim.api.nvim_set_keymap
+
 vim.g.ale_sign_error = ''
 vim.g.ale_sign_warning = ''
 vim.g.ale_set_highlights = 0
@@ -40,11 +43,11 @@ vim.cmd [[
   augroup ALEHighlight
     hi ALEErrorSign ctermfg=1 ctermbg=10 guifg=#fb4934 guibg=#3c3836
     hi ALEWarningSign ctermfg=3 ctermbg=10 guifg=#fabd2f guibg=#3c3836
-  augroup END 
+  augroup END
 ]]
 
-vim.api.nvim_set_keymap('', '<C-k>', '<Plug>(ale_previous_wrap)', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', '<C-j>', '<Plug>(ale_next_wrap)', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', '<f12>', '<Plug>(ale_fix)', { noremap = true, silent = true })
+map('', '<C-k>', '<Plug>(ale_previous_wrap)', opts)
+map('', '<C-j>', '<Plug>(ale_next_wrap)', opts)
+map('', '<f12>', '<Plug>(ale_fix)', opts)
 
 vim.cmd 'ALEEnable'

@@ -34,8 +34,6 @@ vim.bo.synmaxcol = 256
 vim.o.list = true
 vim.o.listchars = [[tab:→\ ,trail:·,nbsp:·,extends:❯,precedes:❮]]
 
-vim.o.linespace = 0
-
 vim.o.sessionoptions = 'curdir,buffers,tabpages,folds,options' -- Sessions
 
 vim.bo.keymap = 'russian-jcukenwin'
@@ -95,7 +93,7 @@ vim.o.history = 128
 
 vim.o.undofile = true
 vim.o.undolevels = 2048
-vim.o.undodir = './undo'
+vim.o.undodir = vim.fn.stdpath('config') .. '/undo'
 
 vim.o.backup = false
 vim.bo.swapfile = false
@@ -137,6 +135,8 @@ vim.wo.colorcolumn = '121'
 vim.bo.textwidth = 119
 
 vim.wo.linebreak = true
+
+vim.o.cmdheight = 2
 
 vim.wo.signcolumn = 'yes' -- Always show the signcolumn
 
