@@ -8,6 +8,8 @@ vim.cmd 'packadd packer.nvim'
 vim.cmd 'packadd nvim-treesitter'
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
+require('plugins.packer')
+
 require('packer').startup(function()
   use '/usr/local/opt/fzf'
 
