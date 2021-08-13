@@ -5,7 +5,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 vim.cmd 'packadd packer.nvim'
-vim.cmd 'packadd nvim-treesitter'
+-- vim.cmd 'packadd nvim-treesitter'
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
 require('plugins.packer')
@@ -16,7 +16,11 @@ require('packer').startup(function()
   use { 'wbthomason/packer.nvim', opt = true }
   use 'AndrewRadev/splitjoin.vim'
   use 'chriskempson/base16-vim'
-  use 'tomtom/tcomment_vim'
+  use 'ayu-theme/ayu-vim'
+  -- use 'tomtom/tcomment_vim'
+  -- use 'suy/vim-context-commentstring'
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  use 'tpope/vim-commentary'
   use 'tpope/vim-abolish'
   use 'tpope/vim-fugitive'
   use 'tpope/vim-repeat'
@@ -26,9 +30,15 @@ require('packer').startup(function()
   use { 'tpope/vim-endwise', ft = { 'ruby' } }
   use { 'tpope/vim-rails', ft = { 'ruby' } }
 
+  -- use {
+  --   'npxbr/gruvbox.nvim',
+  --   requires = { 'rktjmp/lush.nvim' }
+  -- }
+
+  use 'mhartington/oceanic-next'
+
   use {
     'lukas-reineke/indent-blankline.nvim',
-    branch = 'lua',
     config = function() require('plugins.indent-blankline') end
   }
 
@@ -63,9 +73,15 @@ require('packer').startup(function()
     config = function() require('plugins.vim-easy-align') end
   }
 
+  -- use {
+  --   'kyazdani42/nvim-tree.lua',
+  --   config = function() require('plugins.nvim-tree') end
+  -- }
+
   use {
-    'kyazdani42/nvim-tree.lua',
-    config = function() require('plugins.nvim-tree') end
+    'preservim/nerdtree',
+    requires = { 'tiagofumo/vim-nerdtree-syntax-highlight', 'ryanoasis/vim-devicons' },
+    config = function() require('plugins.nerdtree') end
   }
 
   use {
@@ -112,7 +128,7 @@ require('packer').startup(function()
   use {
     'neoclide/coc.nvim',
     branch = 'release',
-    ft = { 'typescript', 'vue' },
+    ft = { 'typescript', 'javascript', 'vue', 'json', 'html' },
     config = function() require('plugins.coc-nvim') end
   }
 
@@ -128,11 +144,26 @@ require('packer').startup(function()
     'nvim-treesitter/nvim-treesitter',
     config = function() require('plugins.nvim-treesitter') end
   }
+  use { 'nvim-treesitter/playground' }
 
-  use { 'ekalinin/Dockerfile.vim', ft = { 'Dockerfile' } }
+  -- use { 'cakebaker/scss-syntax.vim', ft = { 'scss', 'css', 'vue' } }
+  use { 'sheerun/html5.vim', ft = { 'html', 'vue' } }
+  use { 'tbastos/vim-lua', ft = { 'lua' } }
+  use { 'vim-ruby/vim-ruby', ft = { 'ruby' } }
+  use { 'HerringtonDarkholme/yats.vim', ft = { 'typescript', 'vue' } }
   use { 'chr4/nginx.vim', ft = { 'nginx' } }
-  use { 'keith/rspec.vim', ft = { 'rspec' } }
+  use { 'ekalinin/Dockerfile.vim', ft = { 'Dockerfile' } }
   use { 'ericpruitt/tmux.vim', ft = { 'tmux' } }
+  use { 'jparise/vim-graphql', ft = { 'graphql' } }
+  use { 'keith/rspec.vim', ft = { 'rspec' } }
+  use { 'pangloss/vim-javascript', ft = { 'javascript', 'json', 'vue' } }
+  use { 'vim-python/python-syntax', ft = { 'python' } }
+
+  use {
+    'posva/vim-vue',
+    ft = { 'vue' },
+    config = function() require('plugins.vue') end
+  }
 
   use {
     'lifepillar/pgsql.vim',

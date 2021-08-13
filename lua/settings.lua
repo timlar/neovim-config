@@ -12,7 +12,9 @@ vim.cmd 'filetype plugin on'
 vim.cmd 'filetype plugin indent on'
 vim.cmd 'syntax on'
 
-vim.cmd 'colorscheme base16-gruvbox-dark-medium'
+vim.g.ayucolor = 'dark'
+vim.cmd 'colorscheme ayu'
+-- vim.cmd 'colorscheme base16-gruvbox-dark-medium'
 
 -- Improve performance
 vim.cmd 'syn sync maxlines=256' -- 200
@@ -56,13 +58,12 @@ vim.wo.wrap = false
 
 vim.o.virtualedit = ''
 
-if vim.fn.has('folding') == 1 then
-  vim.wo.foldenable = false
-  vim.wo.foldmethod = 'indent' -- 'syntax' or 'manual'
-  vim.o.foldlevel = 0 -- 99
-  vim.o.foldlevelstart = 0 -- 99
-  vim.o.fillchars = vim.o.fillchars .. 'fold:-'
-end
+-- folding
+vim.wo.foldenable = true
+vim.wo.foldmethod = 'manual' -- 'syntax' or 'indent'
+vim.o.foldlevel = 0
+vim.o.foldlevelstart = 99 -- open all folds when open file
+vim.o.fillchars = vim.o.fillchars .. 'fold:-'
 
 vim.o.mouse = 'a'
 vim.o.mousemodel = 'popup'
@@ -128,8 +129,6 @@ vim.o.sidescroll = 0
 vim.bo.formatoptions = vim.bo.formatoptions:gsub('o', '')
 vim.bo.formatoptions = vim.bo.formatoptions .. 'j' -- Remove a comment leader when joining lines
 
-vim.o.fillchars = '' -- Remove the ugly splits separator
-
 -- execute 'vim.wo.colorcolumn=' . join(range(121,335), ',')
 vim.wo.colorcolumn = '121'
 vim.bo.textwidth = 119
@@ -179,5 +178,6 @@ vim.cmd [[
 vim.cmd [[
   augroup HTMLSyntax
     hi def link htmlLink NONE
+    hi def link htmlError NONE
   augroup END
 ]]

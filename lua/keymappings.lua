@@ -5,7 +5,9 @@ local map = vim.api.nvim_set_keymap
 map('n', 'Q', '<nop>', opts)
 
 -- Edit settings
-map('', '<leader>c', ':e ~/.config/nvim/lua/settings.lua<cr>', opts)
+map('', '<leader>cc', ':e ~/.config/nvim/lua/settings.lua<cr>', opts)
+map('', '<leader>cp', ':e ~/.config/nvim/lua/plugins.lua<cr>', opts)
+map('', '<leader>ck', ':e ~/.config/nvim/lua/keymappings.lua<cr>', opts)
 
 -- Edit snippets
 map('', '<leader>u', ':e ~/.config/nvim/user-snippets/all.snippets<cr>', opts)
@@ -103,6 +105,9 @@ map('', '<f10>', ':!ctags -R --exclude=.git --exclude=logs --exclude=doc --exclu
 
 -- Open links in browser
 map('n', 'gx', 'yiW:!open <cWORD><cr>', opts)
+
+map('', '<leader>f', ':Files<cr>', opts)
+map('', '<leader>b', ':Buffers<cr>', opts)
 
 -- Toggle true/false value
 map(

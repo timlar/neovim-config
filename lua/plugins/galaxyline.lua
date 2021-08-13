@@ -1,7 +1,23 @@
 local gl = require('galaxyline')
 
 local colors = {
-  transparent = 'NONE',
+  -- transparent = 'NONE',
+  -- bg          = '#14191F',
+  -- black       = '#0F1419',
+  -- blue        = '#36A3D9',
+  -- cyan        = '#95E6CB',
+  -- green       = '#B8CC52',
+  -- grey        = '#5C6773',
+  -- grey_dark   = '#2D3640',
+  -- grey_medium = '#3E4B59',
+  -- magenta     = '#F07178',
+  -- orange      = '#F29718',
+  -- purple      = '#E6B673',
+  -- red         = '#FF3333',
+  -- white       = '#E6E1CF',
+  -- yellow      = '#FFB454'
+
+  -- Gruvbox colors
   bg          = '#3c3836',
   black       = '#282828',
   blue        = '#83a598',
@@ -29,17 +45,31 @@ section.left[1] = {
   ViMode = {
     provider = function()
       local modes = {
-             n = { color = colors.green,  text = 'NORMAL ' },
-             i = { color = colors.blue,   text = 'INSERT ' },
-             v = { color = colors.purple, text = 'VISUAL ' },
-             V = { color = colors.purple, text = 'VISUAL ' },
-             c = { color = colors.orange, text = 'COMMAND' },
-        [''] = { color = colors.purple, text = 'VISUAL ' }
+      	['c']  = { text = 'COMMAND',          color = colors.orange },
+        ['ce'] = { text = 'NORMAL EX',        color = colors.green },
+        ['cv'] = { text = 'EX',               color = colors.green },
+        ['i']  = { text = 'INSERT',           color = colors.blue },
+        ['ic'] = { text = 'INS-COMPLETE',     color = colors.blue },
+        ['n']  = { text = 'NORMAL',           color = colors.green },
+        ['no'] = { text = 'OPERATOR-PENDING', color = colors.white },
+        ['r']  = { text = 'HIT-ENTER',        color = colors.white },
+        ['r?'] = { text = ':CONFIRM',         color = colors.white },
+        ['rm'] = { text = '--MORE',           color = colors.white },
+        ['R']  = { text = 'REPLACE',          color = colors.yellow },
+        ['Rv'] = { text = 'VIRTUAL',          color = colors.magenta },
+        ['s']  = { text = 'SELECT',           color = colors.purple },
+        ['S']  = { text = 'SELECT',           color = colors.purple },
+        [''] = { text = 'SELECT',           color = colors.purple },
+        ['t']  = { text = 'TERMINAL',         color = colors.yellow },
+        ['v']  = { text = 'VISUAL',           color = colors.purple },
+        ['V']  = { text = 'VISUAL LINE',      color = colors.purple },
+        [''] = { text = 'VISUAL BLOCK',     color = colors.purple },
+        ['!']  = { text = 'SHELL',            color = colors.yellow },
       }
 
       vim.api.nvim_command('hi GalaxyViMode guibg=' .. modes[vim.fn.mode()].color)
 
-      return '  ' .. modes[vim.fn.mode()].text
+      return '  ' .. modes[vim.fn.mode()].text .. ' '
     end,
     separator = ' ',
     highlight = { colors.black, colors.grey_medium },
@@ -49,7 +79,9 @@ section.left[1] = {
 
 section.left[2] = {
   FileName = {
-    provider = 'FileName',
+    provider = function()
+      return vim.fn.expand('%')
+    end,
     condition = condition.buffer_not_empty,
     highlight = { colors.white, colors.grey_medium },
     separator = '',
@@ -234,7 +266,9 @@ section.short_line_left[1] = {
 
 section.short_line_left[2] = {
   FileName = {
-    provider = 'FileName',
+    provider = function()
+      return vim.fn.expand('%')
+    end,
     condition = condition.buffer_not_empty,
     highlight = { colors.white, colors.grey_medium },
     separator = '',
