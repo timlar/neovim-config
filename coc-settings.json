@@ -6,11 +6,20 @@
   "diagnostic.hintSign": "",
   "diagnostic.displayByAle": false,
   "diagnostic.messageTarget": "float",
-  "diagnostic.maxWindowHeight": 20,
-  "diagnostic.maxWindowWidth": 120,
   "javascript.suggestionActions.enabled": false,
   "tsserver.formatOnType": true,
   "eslint.autoFixOnSave": true,
   "vetur.validation.script": true,
-  "tailwindCSS.headwind.runOnSave": false
+  "tailwindCSS.headwind.runOnSave": false,
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": [
+        "terraform",
+        "tf"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  }
 }

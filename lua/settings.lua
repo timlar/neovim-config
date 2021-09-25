@@ -12,9 +12,10 @@ vim.cmd 'filetype plugin on'
 vim.cmd 'filetype plugin indent on'
 vim.cmd 'syntax on'
 
-vim.g.ayucolor = 'dark'
-vim.cmd 'colorscheme ayu'
--- vim.cmd 'colorscheme base16-gruvbox-dark-medium'
+vim.o.background = 'dark'
+vim.o.termguicolors = true
+
+vim.cmd 'colorscheme base16-gruvbox-dark-medium'
 
 -- Improve performance
 vim.cmd 'syn sync maxlines=256' -- 200
@@ -23,9 +24,6 @@ vim.cmd 'syn sync minlines=256' -- 50
 -- vim.cmd 'syn match markdownError "\w\@<=\w\@="' -- Error pattern without the underscore
 
 vim.cmd 'nnoremap * *N' -- Do not go to the next result when highlighting
-
-vim.o.background = 'dark'
-vim.o.termguicolors = true
 
 vim.o.shortmess = vim.o.shortmess..'I' -- Disable 'Children of Uganda'
 

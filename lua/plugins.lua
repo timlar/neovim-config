@@ -16,7 +16,6 @@ require('packer').startup(function()
   use { 'wbthomason/packer.nvim', opt = true }
   use 'AndrewRadev/splitjoin.vim'
   use 'chriskempson/base16-vim'
-  use 'ayu-theme/ayu-vim'
   -- use 'tomtom/tcomment_vim'
   -- use 'suy/vim-context-commentstring'
   use 'JoosepAlviste/nvim-ts-context-commentstring'
@@ -34,8 +33,6 @@ require('packer').startup(function()
   --   'npxbr/gruvbox.nvim',
   --   requires = { 'rktjmp/lush.nvim' }
   -- }
-
-  use 'mhartington/oceanic-next'
 
   use {
     'lukas-reineke/indent-blankline.nvim',
@@ -128,7 +125,7 @@ require('packer').startup(function()
   use {
     'neoclide/coc.nvim',
     branch = 'release',
-    ft = { 'typescript', 'javascript', 'vue', 'json', 'html' },
+    -- ft = { 'typescript', 'javascript', 'vue', 'json', 'html' },
     config = function() require('plugins.coc-nvim') end
   }
 
@@ -158,6 +155,7 @@ require('packer').startup(function()
   use { 'keith/rspec.vim', ft = { 'rspec' } }
   use { 'pangloss/vim-javascript', ft = { 'javascript', 'json', 'vue' } }
   use { 'vim-python/python-syntax', ft = { 'python' } }
+  use { 'hashivim/vim-terraform', ft = { 'tf', 'hcl', 'tfvars', 'terraformrc', 'tfstate', 'terraform' } }
 
   use {
     'posva/vim-vue',
