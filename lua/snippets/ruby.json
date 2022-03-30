@@ -1,0 +1,6 @@
+{
+  "debugger": {
+    "prefix": "dd",
+    "body": "binding.pry"
+  }
+}

@@ -3,7 +3,7 @@ local map = vim.api.nvim_set_keymap
 
 vim.g.VimuxHeight = 40
 vim.g.VimuxOrientation = 'v'
-vim.g.VimuxPromptString = '~> '
+vim.g.VimuxPromptString = ' '
 
 map('', '<leader>rr', ':VimuxPromptCommand<cr>', opts)
 map('', '<leader>rl', ':VimuxRunLastCommand<cr>', opts)

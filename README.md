@@ -6,16 +6,14 @@ Install neovim, packages and fonts
 $ brew install --HEAD neovim
 $ brew tap universal-ctags/universal-ctags
 $ brew install --HEAD universal-ctags
-$ brew tap homebrew/cask-fonts
-$ brew cask install font-blex-mono-nerd-font
 ```
 
-Install language-specific packages (Ruby, Python 2 and 3)
+Install language-specific packages (optional)
 
 ```shell
-$ gem install neovim
-$ pip2 install --upgrade neovim
-$ pip3 install --upgrade neovim
+$ gem install neovim # provider for Ruby
+$ npm install -g neovim stylelint # provider for JavaScript
+$ pip3 install --upgrade neovim # provider for Python 3
 ```
 
 Make sure everything is ok
@@ -41,17 +39,4 @@ Install languages for `nvim-treesitter`
 ```vim
 :PackerUpdate
 :TSUpdate
-:CocUpdate
-```
-
-## How to find slow plugin:
-
-```vim
-:syntime on
-```
-
---- open several files and do something ---
-
-```vim
-:syntime report
 ```

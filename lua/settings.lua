@@ -118,7 +118,7 @@ vim.bo.smartindent = true
 
 vim.o.autoread = true
 
-vim.o.completeopt = 'menu,menuone,longest,preview'
+vim.o.completeopt = 'menu,menuone,noselect' -- 'menu,menuone,longest,preview'
 
 vim.o.scrolloff = 0
 vim.o.sidescrolloff = 0
@@ -164,18 +164,25 @@ vim.cmd [[
   augroup END
 ]]
 
--- Highlight specific words
-vim.cmd [[
-  augroup HighlightDebugger
-    au BufEnter *.rb match error "\<\(binding.pry\|focus: true\|:focus\)\>"
-    au BufEnter *.js match error "\<debugger\>"
-  augroup END
-]]
+-- Don't show tildas on empty lines
+vim.cmd 'hi NonText guifg=bg'
 
--- Disable underline links in HTML
-vim.cmd [[
-  augroup HTMLSyntax
-    hi def link htmlLink NONE
-    hi def link htmlError NONE
-  augroup END
-]]
+-- Temporarily disable HTML error highlighting inside vue templates
+vim.cmd 'hi htmlError guibg=none'
+
+-- Highlight specific words
+-- vim.cmd [[
+--   augroup HighlightDebugger
+--     au BufEnter *.rb match error "\<\(binding.pry\|focus: true\|:focus\)\>"
+--     au BufEnter *.js match error "\<debugger\>"
+--   augroup END
+-- ]]
+
+-- vim.cmd [[
+--   function! SynStack()
+--     if !exists("*synstack")
+--       return
+--     endif
+--     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+--   endfunc
+-- ]]

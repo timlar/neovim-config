@@ -1,0 +1,47 @@
+{
+  "name": "snippets",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": "all",
+        "path": "./all.json"
+      },
+      {
+        "language": [
+          "ruby",
+          "rails"
+        ],
+        "path": "./ruby.json"
+      },
+      {
+        "language": "rails",
+        "path": "./rails.json"
+      },
+      {
+        "language": [
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "vue"
+        ],
+        "path": "./typescript.json"
+      },
+      {
+        "language": "vue",
+        "path": "./html.json"
+      },
+      {
+        "language": "vue",
+        "path": "./javascript.json"
+      },
+      {
+        "language": "vue",
+        "path": "./vue.json"
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "debugger": {
+    "prefix": "dd",
+    "body": "debugger"
+  },
+  "console.log": {
+    "prefix": "cl",
+    "body": "console.log(${0})"
+  },
+  "console.log a variable": {
+    "prefix": "cv",
+    "body": "console.log('-=> ${1}:', ${0})"
+  },
+  "console.error": {
+    "prefix": "ce",
+    "body": "console.error(${0})"
+  },
+  "console.warn": {
+    "prefix": "cw",
+    "body": "console.warn(${0})"
+  },
+  "console.dir": {
+    "prefix": "cd",
+    "body": "console.dir(${0})"
+  },
+  "console.table": {
+    "prefix": "ct",
+    "body": "console.table(${0})"
+  },
+  "useFunc": {
+    "prefix": "use",
+    "body": [
+      "interface Use$1 {",
+      "}",
+      "",
+      "const use$1 = (): Use$1 => {",
+      "\treturn {",
+      "\t}",
+      "}",
+      "",
+      "export default use$1"
+    ],
+    "description": "Vue3 Composable function"
+  }
+}

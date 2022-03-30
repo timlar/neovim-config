@@ -5,19 +5,14 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 vim.cmd 'packadd packer.nvim'
--- vim.cmd 'packadd nvim-treesitter'
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
 require('plugins.packer')
 
 require('packer').startup(function()
-  use '/usr/local/opt/fzf'
-
   use { 'wbthomason/packer.nvim', opt = true }
   use 'AndrewRadev/splitjoin.vim'
   use 'chriskempson/base16-vim'
-  -- use 'tomtom/tcomment_vim'
-  -- use 'suy/vim-context-commentstring'
   use 'JoosepAlviste/nvim-ts-context-commentstring'
   use 'tpope/vim-commentary'
   use 'tpope/vim-abolish'
@@ -29,29 +24,15 @@ require('packer').startup(function()
   use { 'tpope/vim-endwise', ft = { 'ruby' } }
   use { 'tpope/vim-rails', ft = { 'ruby' } }
 
-  -- use {
-  --   'npxbr/gruvbox.nvim',
-  --   requires = { 'rktjmp/lush.nvim' }
-  -- }
-
   use {
     'lukas-reineke/indent-blankline.nvim',
     config = function() require('plugins.indent-blankline') end
   }
 
   use {
-    'junegunn/fzf.vim',
-    config = function() require('plugins.fzf') end
-  }
-
-  use {
-    'glepnir/galaxyline.nvim',
-    branch = 'main',
-    config = function() require('plugins.galaxyline') end,
-    requires = {
-      'kyazdani42/nvim-web-devicons',
-      opt = true
-    }
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function() require('plugins.nvim-lualine') end
   }
 
   use {
@@ -70,20 +51,10 @@ require('packer').startup(function()
     config = function() require('plugins.vim-easy-align') end
   }
 
-  -- use {
-  --   'kyazdani42/nvim-tree.lua',
-  --   config = function() require('plugins.nvim-tree') end
-  -- }
-
   use {
-    'preservim/nerdtree',
-    requires = { 'tiagofumo/vim-nerdtree-syntax-highlight', 'ryanoasis/vim-devicons' },
-    config = function() require('plugins.nerdtree') end
-  }
-
-  use {
-    'SirVer/ultisnips',
-    config = function() require('plugins.ultisnips') end
+    'kyazdani42/nvim-tree.lua',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function() require('plugins.nvim-tree') end
   }
 
   use {
@@ -103,6 +74,12 @@ require('packer').startup(function()
   }
 
   use {
+    'nvim-telescope/telescope.nvim',
+    config = function() require('plugins.telescope') end,
+    requires = { 'nvim-lua/plenary.nvim' }
+  }
+
+  use {
     'norcalli/nvim-colorizer.lua',
     config = function() require('plugins.nvim-colorizer') end
   }
@@ -110,43 +87,47 @@ require('packer').startup(function()
   -- Linters and Formatters --------------------------------------------------------------------------------------------
 
   use {
-    'prettier/vim-prettier',
-    run = 'npm install',
-    ft = { 'javascript', 'vue', 'css', 'json', 'ruby' },
-    config = function() require('plugins.vim-prettier') end
+    'neovim/nvim-lspconfig',
+    requires = {
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-path',
+      'hrsh7th/nvim-cmp',
+      'saadparwaiz1/cmp_luasnip',
+      -- 'williamboman/nvim-lsp-installer',
+    },
+    -- run = 'npm install -g ...',
+    config = function() require('plugins.nvim-lspconfig') end
   }
 
   use {
-    'w0rp/ale',
-    ft = { 'html', 'css', 'scss', 'vue', 'javascript', 'typescript', 'ruby', 'markdown' },
-    config = function() require('plugins.ale') end
+    'jose-elias-alvarez/null-ls.nvim',
+    config = function() require('plugins.null-ls') end
   }
 
   use {
-    'neoclide/coc.nvim',
-    branch = 'release',
-    -- ft = { 'typescript', 'javascript', 'vue', 'json', 'html' },
-    config = function() require('plugins.coc-nvim') end
+    'L3MON4D3/LuaSnip',
+    requires = { 'hrsh7th/nvim-cmp' },
+    config = function() require('plugins.luasnip') end
   }
 
-  -- use {
-  --   'neovim/nvim-lspconfig',
-  --   run = 'npm install -g typescript typescript-language-server vls',
-  --   config = function() require('plugins.nvim-lspconfig') end
-  -- }
+  use {
+    'hrsh7th/nvim-cmp',
+    config = function() require('plugins.nvim-cmp') end
+  }
 
   -- Syntax Highlighting -----------------------------------------------------------------------------------------------
 
   use {
     'nvim-treesitter/nvim-treesitter',
+    requires = { 'p00f/nvim-ts-rainbow' },
     config = function() require('plugins.nvim-treesitter') end
   }
-  use { 'nvim-treesitter/playground' }
+  -- use { 'nvim-treesitter/playground' } -- :TSPlaygroundToggle
 
-  -- use { 'cakebaker/scss-syntax.vim', ft = { 'scss', 'css', 'vue' } }
   use { 'sheerun/html5.vim', ft = { 'html', 'vue' } }
   use { 'tbastos/vim-lua', ft = { 'lua' } }
-  use { 'vim-ruby/vim-ruby', ft = { 'ruby' } }
   use { 'HerringtonDarkholme/yats.vim', ft = { 'typescript', 'vue' } }
   use { 'chr4/nginx.vim', ft = { 'nginx' } }
   use { 'ekalinin/Dockerfile.vim', ft = { 'Dockerfile' } }
@@ -158,9 +139,15 @@ require('packer').startup(function()
   use { 'hashivim/vim-terraform', ft = { 'tf', 'hcl', 'tfvars', 'terraformrc', 'tfstate', 'terraform' } }
 
   use {
+    'vim-ruby/vim-ruby',
+    ft = { 'ruby' },
+    config = function() require('plugins.ruby') end
+  }
+
+  use {
     'posva/vim-vue',
     ft = { 'vue' },
-    config = function() require('plugins.vue') end
+    config = function() require('plugins.vim-vue') end
   }
 
   use {

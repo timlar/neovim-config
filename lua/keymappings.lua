@@ -106,13 +106,9 @@ map('', '<f10>', ':!ctags -R --exclude=.git --exclude=logs --exclude=doc --exclu
 -- Open links in browser
 map('n', 'gx', 'yiW:!open <cWORD><cr>', opts)
 
-map('', '<leader>f', ':Files<cr>', opts)
-map('', '<leader>b', ':Buffers<cr>', opts)
-
 -- Toggle true/false value
 map(
   'n',
   '<leader><leader>', [[expand('<cword>') == 'true' ? "ciwfalse\<Esc>" : (expand('<cword>') == 'false' ? "ciwtrue\<Esc>" : '')]],
   { noremap = true, silent = true, expr = true }
 )
-

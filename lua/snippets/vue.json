@@ -1,0 +1,44 @@
+{
+  "template": {
+    "prefix": "template",
+    "body": [
+      "<template>",
+      "\t$0",
+      "</template>"
+    ],
+    "description": "<template> element"
+  },
+  "script:ts": {
+    "prefix": "script:ts",
+    "body": [
+      "<script lang=\"ts\">",
+      "import { defineComponent } from 'vue'",
+      "",
+      "export default defineComponent({",
+      "\tsetup() {",
+      "\t\t$0",
+      "\t},",
+      "})",
+      "</script>"
+    ],
+    "description": "<script> element"
+  },
+  "script": {
+    "prefix": "script",
+    "body": [
+      "<script setup lang=\"ts\">",
+      "$0",
+      "</script>"
+    ],
+    "description": "<script> element"
+  },
+  "styleLang": {
+    "prefix": "style",
+    "body": [
+      "<style scoped>",
+      "\t$0",
+      "</style>"
+    ],
+    "description": "<style> element"
+  }
+}

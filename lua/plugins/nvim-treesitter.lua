@@ -3,10 +3,18 @@ require'nvim-treesitter.configs'.setup {
     'bash', 'comment', 'css', 'go', 'graphql', 'html', 'javascript', 'jsdoc', 'json', 'jsonc', 'lua', 'regex', 'ruby',
     'scss', 'toml', 'typescript', 'vue', 'yaml'
   },
-  highlight = { enable = true },
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = true
+  },
+  rainbow = {
+    enable = true,
+    extended_mode = false,
+    max_file_lines = nil
+  },
   incremental_selection = { enable = true },
   indent = { enable = true },
-  context_commentstring = { enable = true },
+  context_commentstring = { enable = true }
 }
 
 vim.wo.foldmethod = 'expr'
