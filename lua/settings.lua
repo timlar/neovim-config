@@ -15,7 +15,7 @@ vim.cmd 'syntax on'
 vim.o.background = 'dark'
 vim.o.termguicolors = true
 
-vim.cmd 'colorscheme base16-gruvbox-dark-medium'
+vim.cmd 'colorscheme base16-gruvbox-dark-medium' -- ayu
 
 -- Improve performance
 vim.cmd 'syn sync maxlines=256' -- 200
@@ -127,9 +127,8 @@ vim.o.sidescroll = 0
 vim.bo.formatoptions = vim.bo.formatoptions:gsub('o', '')
 vim.bo.formatoptions = vim.bo.formatoptions .. 'j' -- Remove a comment leader when joining lines
 
--- execute 'vim.wo.colorcolumn=' . join(range(121,335), ',')
-vim.wo.colorcolumn = '121'
-vim.bo.textwidth = 119
+-- vim.wo.colorcolumn = '+1'
+vim.bo.textwidth = 120
 
 vim.wo.linebreak = true
 
@@ -167,6 +166,17 @@ vim.cmd [[
 -- Don't show tildas on empty lines
 vim.cmd 'hi NonText guifg=bg'
 
+-- Color Theme fixes
+vim.cmd 'hi VertSplit guibg=none'
+vim.cmd 'hi LineNr guibg=none'
+vim.cmd 'hi SignColumn guibg=none'
+vim.cmd 'hi GitGutterAdd guibg=none'
+vim.cmd 'hi GitGutterChange guibg=none'
+vim.cmd 'hi GitGutterDelete guibg=none'
+vim.cmd 'hi GitGutterDelete guibg=none'
+vim.cmd 'hi GitGutterChange guibg=none'
+
+
 -- Temporarily disable HTML error highlighting inside vue templates
 vim.cmd 'hi htmlError guibg=none'
 
@@ -178,6 +188,7 @@ vim.cmd 'hi htmlError guibg=none'
 --   augroup END
 -- ]]
 
+-- :call SynStack()
 -- vim.cmd [[
 --   function! SynStack()
 --     if !exists("*synstack")

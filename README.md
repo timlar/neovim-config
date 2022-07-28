@@ -1,6 +1,6 @@
 ## Setup
 
-Install neovim, packages and fonts
+Install neovim and additional utils
 
 ```shell
 $ brew install --HEAD neovim

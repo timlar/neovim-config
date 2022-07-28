@@ -7,11 +7,11 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     additional_vim_regex_highlighting = true
   },
-  rainbow = {
-    enable = true,
-    extended_mode = false,
-    max_file_lines = nil
-  },
+  -- rainbow = {
+  --   enable = true,
+  --   extended_mode = false,
+  --   max_file_lines = nil
+  -- },
   incremental_selection = { enable = true },
   indent = { enable = true },
   context_commentstring = { enable = true }

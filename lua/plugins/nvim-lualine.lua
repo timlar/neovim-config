@@ -4,8 +4,14 @@ require('lualine').setup {
     theme = 'gruvbox',
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
-    disabled_filetypes = { 'NvimTree' },
+    disabled_filetypes = {},
     always_divide_middle = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
   },
   sections = {
     lualine_a = { 'mode' },
@@ -32,5 +38,7 @@ require('lualine').setup {
     lualine_z = {}
   },
   tabline = {},
-  extensions = {}
+  winbar = {},
+  inactive_winbar = {},
+  extensions = { 'nvim-tree' }
 }

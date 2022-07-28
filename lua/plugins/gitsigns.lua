@@ -1,11 +1,15 @@
 require('gitsigns').setup {
-  debug_mode = true,
   signs = {
-    add          = { hl = 'GitGutterAdd'   , text = '▎', numhl='GitGutterAddNr'   , linehl='GitGutterAddLn' },
-    change       = { hl = 'GitGutterChange', text = '▎', numhl='GitGutterChangeNr', linehl='GitGutterChangeLn' },
-    delete       = { hl = 'GitGutterDelete', text = '_', numhl='GitGutterDeleteNr', linehl='GitGutterDeleteLn' },
-    topdelete    = { hl = 'GitGutterDelete', text = '‾', numhl='GitGutterDeleteNr', linehl='GitGutterDeleteLn' },
-    changedelete = { hl = 'GitGutterChange', text = '~', numhl='GitGutterChangeNr', linehl='GitGutterChangeLn' },
+    -- add          = { hl = 'GitGutterAdd'   , text = '▎', numhl='GitGutterAddNr'   , linehl='GitGutterAddLn' },
+    -- change       = { hl = 'GitGutterChange', text = '▎', numhl='GitGutterChangeNr', linehl='GitGutterChangeLn' },
+    -- delete       = { hl = 'GitGutterDelete', text = '_', numhl='GitGutterDeleteNr', linehl='GitGutterDeleteLn' },
+    -- topdelete    = { hl = 'GitGutterDelete', text = '‾', numhl='GitGutterDeleteNr', linehl='GitGutterDeleteLn' },
+    -- changedelete = { hl = 'GitGutterChange', text = '~', numhl='GitGutterChangeNr', linehl='GitGutterChangeLn' },
+    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
   },
   signcolumn = true,
   numhl = false,
@@ -23,6 +27,7 @@ require('gitsigns').setup {
     delay = 1000,
     ignore_whitespace = false,
   },
+  current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
   current_line_blame_formatter_opts = {
     relative_time = false
   },

@@ -12,7 +12,7 @@ require('plugins.packer')
 require('packer').startup(function()
   use { 'wbthomason/packer.nvim', opt = true }
   use 'AndrewRadev/splitjoin.vim'
-  use 'chriskempson/base16-vim'
+  use 'base16-project/base16-vim'
   use 'JoosepAlviste/nvim-ts-context-commentstring'
   use 'tpope/vim-commentary'
   use 'tpope/vim-abolish'
@@ -69,14 +69,14 @@ require('packer').startup(function()
 
   use {
     'lewis6991/gitsigns.nvim',
-    config = function() require('plugins.gitsigns') end,
-    requires = { 'nvim-lua/plenary.nvim' }
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function() require('plugins.gitsigns') end
   }
 
   use {
     'nvim-telescope/telescope.nvim',
-    config = function() require('plugins.telescope') end,
-    requires = { 'nvim-lua/plenary.nvim' }
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function() require('plugins.telescope') end
   }
 
   use {
@@ -95,7 +95,7 @@ require('packer').startup(function()
       'hrsh7th/cmp-path',
       'hrsh7th/nvim-cmp',
       'saadparwaiz1/cmp_luasnip',
-      -- 'williamboman/nvim-lsp-installer',
+      'williamboman/nvim-lsp-installer',
     },
     -- run = 'npm install -g ...',
     config = function() require('plugins.nvim-lspconfig') end
@@ -124,7 +124,7 @@ require('packer').startup(function()
     requires = { 'p00f/nvim-ts-rainbow' },
     config = function() require('plugins.nvim-treesitter') end
   }
-  -- use { 'nvim-treesitter/playground' } -- :TSPlaygroundToggle
+  use { 'nvim-treesitter/playground' } -- :TSPlaygroundToggle
 
   use { 'sheerun/html5.vim', ft = { 'html', 'vue' } }
   use { 'tbastos/vim-lua', ft = { 'lua' } }

@@ -1,6 +1,23 @@
 -- $ brew install pgformatter stylua
 -- $ gem install solargraph
 -- $ npm install -g typescript typescript-language-server eslint prettier @tailwindcss/language-server vscode-langservers-extracted @volar/server vls yaml-language-server
+require('nvim-lsp-installer').setup {
+  ensure_installed = {
+    'dockerls',
+    'graphql',
+    'solang',
+    'solc',
+    'sumneko_lua',
+    'tflint',
+    'eslint',
+    'solargraph',
+    'stylelint_lsp',
+    'tailwindcss',
+    'tsserver',
+    'volar',
+    'yamlls'
+  },
+}
 
 local lspconfig = require('lspconfig')
 
@@ -12,7 +29,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 local on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true }
 
-  client.resolved_capabilities.document_formatting = false
+  client.server_capabilities.document_formatting = false
 
   capabilities = capabilities
 
@@ -25,9 +42,9 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.open_float(0, { scope = "line", border = "rounded" })<cr>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = { border = "rounded" } })<cr>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = { border = "rounded" } })<cr>', opts)
 end
 
 local servers = { 'eslint', 'solargraph', 'tailwindcss', 'volar', 'yamlls' }
@@ -47,17 +64,14 @@ lspconfig.tsserver.setup({
   },
 })
 
+lspconfig.volar.setup({
+  on_attach = on_attach,
+  cmd = { 'volar-server', '--stdio' },
+})
+
 -- Show line diagnostics automatically in hover window
 -- vim.o.updatetime = 250
--- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float()]]
-
--- gruvbox color theme
-vim.cmd [[
-  hi DiagnosticSignError ctermfg=1 ctermbg=0 guifg=Red guibg=#3c3836
-  hi DiagnosticSignWarn ctermfg=3 ctermbg=0 guifg=Orange guibg=#3c3836
-  hi DiagnosticSignHint ctermfg=7 ctermbg=0 guifg=LightGrey guibg=#3c3836
-  hi DiagnosticSignInfo ctermfg=4 ctermbg=0 guifg=LightBlue guibg=#3c3836
-]]
+-- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(0, { scope = "line", border = "rounded" })]]
 
 local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 
@@ -73,3 +87,13 @@ vim.diagnostic.config({
     source = 'always'
   }
 })
+
+-- gruvbox color theme
+vim.cmd [[
+  hi DiagnosticSignError ctermfg=1 ctermbg=0 guifg=Red guibg=NONE
+  hi DiagnosticSignWarn ctermfg=3 ctermbg=0 guifg=Orange guibg=NONE
+  hi DiagnosticSignHint ctermfg=7 ctermbg=0 guifg=LightGrey guibg=NONE
+  hi DiagnosticSignInfo ctermfg=4 ctermbg=0 guifg=LightBlue guibg=NONE
+  hi NormalFloat guibg=none
+  hi FloatBorder guifg=gray guibg=none
+]]
