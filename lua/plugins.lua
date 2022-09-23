@@ -9,6 +9,13 @@ vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
 require('plugins.packer')
 
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
+
 require('packer').startup(function()
   use { 'wbthomason/packer.nvim', opt = true }
   use 'AndrewRadev/splitjoin.vim'
@@ -95,15 +102,14 @@ require('packer').startup(function()
       'hrsh7th/cmp-path',
       'hrsh7th/nvim-cmp',
       'saadparwaiz1/cmp_luasnip',
-      'williamboman/nvim-lsp-installer',
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      {
+        'jose-elias-alvarez/null-ls.nvim',
+        config = function() require('plugins.null-ls') end
+      }
     },
-    -- run = 'npm install -g ...',
     config = function() require('plugins.nvim-lspconfig') end
-  }
-
-  use {
-    'jose-elias-alvarez/null-ls.nvim',
-    config = function() require('plugins.null-ls') end
   }
 
   use {
@@ -124,30 +130,24 @@ require('packer').startup(function()
     requires = { 'p00f/nvim-ts-rainbow' },
     config = function() require('plugins.nvim-treesitter') end
   }
-  use { 'nvim-treesitter/playground' } -- :TSPlaygroundToggle
+  -- use { 'nvim-treesitter/playground' } -- :TSPlaygroundToggle
 
-  use { 'sheerun/html5.vim', ft = { 'html', 'vue' } }
-  use { 'tbastos/vim-lua', ft = { 'lua' } }
-  use { 'HerringtonDarkholme/yats.vim', ft = { 'typescript', 'vue' } }
+  -- use { 'HerringtonDarkholme/yats.vim', ft = { 'typescript', 'vue' } } -- typescript
+  -- use { 'ekalinin/Dockerfile.vim', ft = { 'Dockerfile' } }
+  -- use { 'jparise/vim-graphql', ft = { 'graphql' } }
+  -- use { 'pangloss/vim-javascript', ft = { 'javascript', 'json', 'vue' } }
+  -- use { 'sheerun/html5.vim', ft = { 'html', 'vue' } }
+  -- use { 'vim-python/python-syntax', ft = { 'python' } }
   use { 'chr4/nginx.vim', ft = { 'nginx' } }
-  use { 'ekalinin/Dockerfile.vim', ft = { 'Dockerfile' } }
   use { 'ericpruitt/tmux.vim', ft = { 'tmux' } }
-  use { 'jparise/vim-graphql', ft = { 'graphql' } }
-  use { 'keith/rspec.vim', ft = { 'rspec' } }
-  use { 'pangloss/vim-javascript', ft = { 'javascript', 'json', 'vue' } }
-  use { 'vim-python/python-syntax', ft = { 'python' } }
   use { 'hashivim/vim-terraform', ft = { 'tf', 'hcl', 'tfvars', 'terraformrc', 'tfstate', 'terraform' } }
+  use { 'keith/rspec.vim', ft = { 'rspec' } }
+  use { 'tbastos/vim-lua', ft = { 'lua' } }
 
   use {
     'vim-ruby/vim-ruby',
     ft = { 'ruby' },
     config = function() require('plugins.ruby') end
-  }
-
-  use {
-    'posva/vim-vue',
-    ft = { 'vue' },
-    config = function() require('plugins.vim-vue') end
   }
 
   use {

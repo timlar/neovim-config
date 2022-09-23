@@ -23,7 +23,6 @@ require('nvim-tree').setup {
     adaptive_size = false,
     centralize_selection = false,
     width = 40,
-    height = 30,
     hide_root_folder = false,
     side = 'left',
     preserve_window_proportions = false,
@@ -185,7 +184,7 @@ require('nvim-tree').setup {
 -- TODO: Shortcut to set selected dir as root dir
 
 map('', '<f3>', ':NvimTreeToggle<cr>', opts)
-map('', '<s-f3>', ':NvimTreeFindFile<cr>', opts)
+map('', '<f4>', ':NvimTreeFindFile<cr>', opts)
 
 -- A list of groups can be found at `:h nvim_tree_highlight`
 vim.cmd 'highlight NvimTreeFolderIcon guifg=#83a598'
@@ -194,4 +193,3 @@ vim.cmd 'highlight NvimTreeIndentMarker guifg=#3c3836'
 vim.cmd 'highlight NvimTreeRootFolder guifg=#d65d0e'
 vim.cmd 'highlight NvimTreeWindowPicker gui=bold guifg=#282828 guibg=#83a598'
 -- vim.cmd 'highlight NvimTreeNormal guibg=#3c3836'
--- hi

@@ -28,15 +28,10 @@ Install neovim plugins
 :PackerInstall
 ```
 
-Install languages for `nvim-treesitter`
-
-```vim
-:TSInstall bash comment css go graphql html javascript jsdoc json jsonc lua regex ruby scss toml typescript vue yaml
-```
-
 ## How to update packages:
 
 ```vim
 :PackerUpdate
 :TSUpdate
+:Mason
 ```

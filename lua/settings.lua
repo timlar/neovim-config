@@ -15,7 +15,7 @@ vim.cmd 'syntax on'
 vim.o.background = 'dark'
 vim.o.termguicolors = true
 
-vim.cmd 'colorscheme base16-gruvbox-dark-medium' -- ayu
+vim.cmd 'colorscheme base16-gruvbox-dark-medium'
 
 -- Improve performance
 vim.cmd 'syn sync maxlines=256' -- 200
@@ -166,6 +166,13 @@ vim.cmd [[
 -- Don't show tildas on empty lines
 vim.cmd 'hi NonText guifg=bg'
 
+-- Fix: Set filetype for Vue files
+vim.cmd [[
+  augroup Vue
+    au BufNewFile,BufRead *.vue setlocal filetype=vue
+  augroup END
+]]
+
 -- Color Theme fixes
 vim.cmd 'hi VertSplit guibg=none'
 vim.cmd 'hi LineNr guibg=none'
@@ -176,9 +183,9 @@ vim.cmd 'hi GitGutterDelete guibg=none'
 vim.cmd 'hi GitGutterDelete guibg=none'
 vim.cmd 'hi GitGutterChange guibg=none'
 
-
 -- Temporarily disable HTML error highlighting inside vue templates
-vim.cmd 'hi htmlError guibg=none'
+-- vim.cmd 'hi Error guibg=none'
+-- vim.cmd 'hi htmlError guibg=none'
 
 -- Highlight specific words
 -- vim.cmd [[
@@ -189,11 +196,13 @@ vim.cmd 'hi htmlError guibg=none'
 -- ]]
 
 -- :call SynStack()
--- vim.cmd [[
---   function! SynStack()
---     if !exists("*synstack")
---       return
---     endif
---     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
---   endfunc
--- ]]
+vim.cmd [[
+  function! SynStack()
+    if !exists("*synstack")
+      return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+  endfunc
+]]
+
+-- :let s = synID(line('.'), col('.'), 1) | echo synIDattr(s, 'name') . ' -> ' . synIDattr(synIDtrans(s), 'name')
