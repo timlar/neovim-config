@@ -5,6 +5,7 @@ local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup({
   sources = {
     formatting.eslint_d,
+    formatting.fixjson,
     formatting.pg_format,
     formatting.prettierd,
     formatting.rubocop,

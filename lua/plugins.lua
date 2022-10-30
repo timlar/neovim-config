@@ -27,6 +27,8 @@ require('packer').startup(function()
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
   use 'wellle/targets.vim'
+  use 'dstein64/vim-startuptime'
+  use 'lewis6991/impatient.nvim'
 
   use { 'tpope/vim-endwise', ft = { 'ruby' } }
   use { 'tpope/vim-rails', ft = { 'ruby' } }
@@ -66,6 +68,7 @@ require('packer').startup(function()
 
   use {
     'diepm/vim-rest-console',
+    ft = { 'rest' },
     config = function() require('plugins.vim-rest-console') end
   }
 
@@ -96,48 +99,45 @@ require('packer').startup(function()
   use {
     'neovim/nvim-lspconfig',
     requires = {
+      'folke/lsp-colors.nvim',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
-      'hrsh7th/nvim-cmp',
-      'saadparwaiz1/cmp_luasnip',
-      'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
+      'williamboman/mason.nvim',
+      {
+        'hrsh7th/nvim-cmp',
+        config = function() require('plugins.nvim-cmp') end
+      },
       {
         'jose-elias-alvarez/null-ls.nvim',
         config = function() require('plugins.null-ls') end
+      },
+      {
+        'L3MON4D3/LuaSnip',
+        requires = { 'saadparwaiz1/cmp_luasnip' },
+        config = function() require('plugins.luasnip') end
       }
     },
     config = function() require('plugins.nvim-lspconfig') end
-  }
-
-  use {
-    'L3MON4D3/LuaSnip',
-    requires = { 'hrsh7th/nvim-cmp' },
-    config = function() require('plugins.luasnip') end
-  }
-
-  use {
-    'hrsh7th/nvim-cmp',
-    config = function() require('plugins.nvim-cmp') end
   }
 
   -- Syntax Highlighting -----------------------------------------------------------------------------------------------
 
   use {
     'nvim-treesitter/nvim-treesitter',
-    requires = { 'p00f/nvim-ts-rainbow' },
+    requires = {
+      'p00f/nvim-ts-rainbow',
+      {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        after = { 'nvim-treesitter' }
+      },
+    },
     config = function() require('plugins.nvim-treesitter') end
   }
   -- use { 'nvim-treesitter/playground' } -- :TSPlaygroundToggle
 
-  -- use { 'HerringtonDarkholme/yats.vim', ft = { 'typescript', 'vue' } } -- typescript
-  -- use { 'ekalinin/Dockerfile.vim', ft = { 'Dockerfile' } }
-  -- use { 'jparise/vim-graphql', ft = { 'graphql' } }
-  -- use { 'pangloss/vim-javascript', ft = { 'javascript', 'json', 'vue' } }
-  -- use { 'sheerun/html5.vim', ft = { 'html', 'vue' } }
-  -- use { 'vim-python/python-syntax', ft = { 'python' } }
   use { 'chr4/nginx.vim', ft = { 'nginx' } }
   use { 'ericpruitt/tmux.vim', ft = { 'tmux' } }
   use { 'hashivim/vim-terraform', ft = { 'tf', 'hcl', 'tfvars', 'terraformrc', 'tfstate', 'terraform' } }

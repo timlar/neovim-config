@@ -13,5 +13,10 @@ require('packer').init {
       diff = 'd',
       prompt_revert = 'r',
     }
-  }
+  },
+  log = { level = 'warn' }, -- One of: 'trace', 'debug', 'info', 'warn', 'error', 'fatal'.
+  profile = {
+    enable = false,
+    threshold = 1,
+  },
 }

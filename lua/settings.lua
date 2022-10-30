@@ -15,7 +15,7 @@ vim.cmd 'syntax on'
 vim.o.background = 'dark'
 vim.o.termguicolors = true
 
-vim.cmd 'colorscheme base16-gruvbox-dark-medium'
+vim.cmd 'colorscheme base16-gruvbox-dark-hard'
 
 -- Improve performance
 vim.cmd 'syn sync maxlines=256' -- 200
@@ -173,7 +173,7 @@ vim.cmd [[
   augroup END
 ]]
 
--- Color Theme fixes
+-- Gruvbox color theme fixes
 vim.cmd 'hi VertSplit guibg=none'
 vim.cmd 'hi LineNr guibg=none'
 vim.cmd 'hi SignColumn guibg=none'
@@ -182,6 +182,11 @@ vim.cmd 'hi GitGutterChange guibg=none'
 vim.cmd 'hi GitGutterDelete guibg=none'
 vim.cmd 'hi GitGutterDelete guibg=none'
 vim.cmd 'hi GitGutterChange guibg=none'
+vim.cmd 'hi Underlined cterm=none gui=none'
+vim.cmd 'hi DiagnosticUnderlineError cterm=undercurl gui=undercurl'
+vim.cmd 'hi DiagnosticUnderlineHint cterm=undercurl gui=undercurl'
+vim.cmd 'hi DiagnosticUnderlineInfo cterm=undercurl gui=undercurl'
+vim.cmd 'hi DiagnosticUnderlineWarn cterm=undercurl gui=undercurl'
 
 -- Temporarily disable HTML error highlighting inside vue templates
 -- vim.cmd 'hi Error guibg=none'
@@ -196,13 +201,13 @@ vim.cmd 'hi GitGutterChange guibg=none'
 -- ]]
 
 -- :call SynStack()
-vim.cmd [[
-  function! SynStack()
-    if !exists("*synstack")
-      return
-    endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-  endfunc
-]]
+-- vim.cmd [[
+--   function! SynStack()
+--     if !exists("*synstack")
+--       return
+--     endif
+--     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+--   endfunc
+-- ]]
 
 -- :let s = synID(line('.'), col('.'), 1) | echo synIDattr(s, 'name') . ' -> ' . synIDattr(synIDtrans(s), 'name')
