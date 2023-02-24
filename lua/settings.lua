@@ -15,7 +15,7 @@ vim.cmd 'syntax on'
 vim.o.background = 'dark'
 vim.o.termguicolors = true
 
-vim.cmd 'colorscheme base16-gruvbox-dark-hard'
+vim.cmd 'colorscheme base16-gruvbox-dark-medium'
 
 -- Improve performance
 vim.cmd 'syn sync maxlines=256' -- 200
@@ -174,19 +174,23 @@ vim.cmd [[
 ]]
 
 -- Gruvbox color theme fixes
-vim.cmd 'hi VertSplit guibg=none'
-vim.cmd 'hi LineNr guibg=none'
-vim.cmd 'hi SignColumn guibg=none'
-vim.cmd 'hi GitGutterAdd guibg=none'
-vim.cmd 'hi GitGutterChange guibg=none'
-vim.cmd 'hi GitGutterDelete guibg=none'
-vim.cmd 'hi GitGutterDelete guibg=none'
-vim.cmd 'hi GitGutterChange guibg=none'
-vim.cmd 'hi Underlined cterm=none gui=none'
-vim.cmd 'hi DiagnosticUnderlineError cterm=undercurl gui=undercurl'
-vim.cmd 'hi DiagnosticUnderlineHint cterm=undercurl gui=undercurl'
-vim.cmd 'hi DiagnosticUnderlineInfo cterm=undercurl gui=undercurl'
-vim.cmd 'hi DiagnosticUnderlineWarn cterm=undercurl gui=undercurl'
+vim.cmd [[
+  hi! VertSplit guibg=none
+  hi! LineNr guibg=none
+  hi! SignColumn guibg=none
+  hi! GitGutterAdd guibg=none
+  hi! GitGutterChange guibg=none
+  hi! GitGutterDelete guibg=none
+  hi! GitGutterDelete guibg=none
+  hi! GitGutterChange guibg=none
+  hi! Underlined cterm=none gui=none
+  hi! DiagnosticUnderlineError cterm=undercurl gui=undercurl
+  hi! DiagnosticUnderlineHint cterm=undercurl gui=undercurl
+  hi! DiagnosticUnderlineInfo cterm=undercurl gui=undercurl
+  hi! DiagnosticUnderlineWarn cterm=undercurl gui=undercurl
+  hi! Comment cterm=italic gui=italic
+  hi! CursorLine ctermbg=none guibg=none
+]]
 
 -- Temporarily disable HTML error highlighting inside vue templates
 -- vim.cmd 'hi Error guibg=none'

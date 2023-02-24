@@ -31,7 +31,7 @@ require'nvim-treesitter.configs'.setup {
     max_file_lines = nil
   },
   incremental_selection = { enable = true },
-  indent = { enable = true },
+  indent = { enable = false }, -- Weired behavior in ruby files
   context_commentstring = { enable = true },
   textobjects = {
     select = {

@@ -78,12 +78,6 @@ require('packer').startup(function()
   }
 
   use {
-    'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function() require('plugins.gitsigns') end
-  }
-
-  use {
     'nvim-telescope/telescope.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
     config = function() require('plugins.telescope') end
@@ -92,6 +86,12 @@ require('packer').startup(function()
   use {
     'norcalli/nvim-colorizer.lua',
     config = function() require('plugins.nvim-colorizer') end
+  }
+
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function() require('plugins.gitsigns') end
   }
 
   -- Linters and Formatters --------------------------------------------------------------------------------------------
@@ -108,6 +108,7 @@ require('packer').startup(function()
       'williamboman/mason.nvim',
       {
         'hrsh7th/nvim-cmp',
+        requires = { 'onsails/lspkind.nvim' },
         config = function() require('plugins.nvim-cmp') end
       },
       {
@@ -143,12 +144,7 @@ require('packer').startup(function()
   use { 'hashivim/vim-terraform', ft = { 'tf', 'hcl', 'tfvars', 'terraformrc', 'tfstate', 'terraform' } }
   use { 'keith/rspec.vim', ft = { 'rspec' } }
   use { 'tbastos/vim-lua', ft = { 'lua' } }
-
-  use {
-    'vim-ruby/vim-ruby',
-    ft = { 'ruby' },
-    config = function() require('plugins.ruby') end
-  }
+  use { 'fatih/vim-go', ft = { 'go' } }
 
   use {
     'lifepillar/pgsql.vim',

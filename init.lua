@@ -6,10 +6,10 @@ local disabled_built_ins = {
   'gzip',
   'logipat',
   'matchit',
-  'netrw',
-  'netrwFileHandlers',
-  'netrwPlugin',
-  'netrwSettings',
+  -- 'netrw',
+  -- 'netrwFileHandlers',
+  -- 'netrwPlugin',
+  -- 'netrwSettings',
   'rrhelper',
   'spellfile_plugin',
   'tar',
@@ -20,6 +20,8 @@ local disabled_built_ins = {
   'zipPlugin',
 }
 
+
+vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 
 for _, plugin in pairs(disabled_built_ins) do

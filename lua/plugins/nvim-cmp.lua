@@ -1,33 +1,6 @@
 local cmp = require('cmp')
 local luasnip = require('luasnip')
-
-local kind_icons = {
-  Text = '',
-  Method = 'm',
-  Function = '',
-  Constructor = '',
-  Field = '',
-  Variable = '',
-  Class = '',
-  Interface = '',
-  Module = '',
-  Property = '',
-  Unit = '',
-  Value = '',
-  Enum = '',
-  Keyword = '',
-  Snippet = '',
-  Color = '',
-  File = '',
-  Reference = '',
-  Folder = '',
-  EnumMember = '',
-  Constant = '',
-  Struct = '',
-  Event = '',
-  Operator = '',
-  TypeParameter = '',
-}
+local lspkind = require('lspkind')
 
 cmp.setup({
   window = {
@@ -37,7 +10,7 @@ cmp.setup({
   mapping = {
     ['<cr>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
-      select = true
+      select = false
     }),
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -73,17 +46,10 @@ cmp.setup({
     end,
   },
   formatting = {
-    fields = { 'kind', 'abbr', 'menu' },
-    format = function(entry, vim_item)
-      vim_item.kind = string.format('%s', kind_icons[vim_item.kind])
-      vim_item.menu = ({
-        nvim_lsp = '[LSP]',
-        luasnip = '[Snippet]',
-        buffer = '[Buffer]',
-        path = '[Path]',
-      })[entry.source.name]
-
-      return vim_item
-    end,
-  },
+    format = lspkind.cmp_format({
+      mode = 'symbol_text',
+      maxwidth = 50,
+      ellipsis_char = '...'
+    })
+  }
 })

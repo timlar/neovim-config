@@ -1,4 +1,4 @@
--- $ gem install solargraph
+-- $ gem install solargraph solargraph-rails
 -- $ brew install lua-language-server pgformatter stylua yamllint
 -- $ npm install -g @fsouza/prettierd @tailwindcss/language-server @volar/vue-language-server dockerfile-language-server-nodejs eslint eslint_d fixjson graphql-language-service-cli prettier stylelint typescript typescript-language-server yaml-language-server
 
@@ -15,7 +15,6 @@ require('mason').setup({
 -- ◍ graphql-language-service-cli
 -- ◍ lua-language-server
 -- ◍ prettierd
--- ◍ solargraph
 -- ◍ stylelint-lsp
 -- ◍ tailwindcss-language-server
 -- ◍ tflint
@@ -45,6 +44,7 @@ map('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 map('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({ async = true }, 3000)<cr>', opts)
+map('n', '<leader>F', '<cmd>EslintFixAll<cr>', opts)
 map('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float(0, { scope = "line", border = "rounded" })<cr>', opts)
 map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ float = { border = "rounded" } })<cr>', opts)
 map('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = { border = "rounded" } })<cr>', opts)
@@ -61,6 +61,8 @@ end
 local servers = {
   'graphql',
   'tailwindcss',
+  'eslint',
+  'jsonls',
 }
 
 for _, lsp in ipairs(servers) do
@@ -76,7 +78,6 @@ lspconfig.solargraph.setup({
 
 lspconfig.volar.setup({
   on_attach = on_attach,
-  -- cmd = { 'volar-server', '--stdio' },
   init_options = {
     documentFeatures = {
       documentFormatting = false
@@ -97,7 +98,7 @@ lspconfig.tsserver.setup({
 -- vim.o.updatetime = 250
 -- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(0, { scope = "line", border = "rounded" })]]
 
-local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+local signs = { Error = '', Warn = '', Hint = '', Info = '' }
 
 for type, icon in pairs(signs) do
   local hl = 'DiagnosticSign' .. type
@@ -121,10 +122,6 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
 
 -- gruvbox color theme fixes
 vim.cmd [[
-  hi DiagnosticSignError ctermfg=1 ctermbg=0 guifg=Red guibg=NONE
-  hi DiagnosticSignWarn ctermfg=3 ctermbg=0 guifg=Orange guibg=NONE
-  hi DiagnosticSignHint ctermfg=7 ctermbg=0 guifg=LightGrey guibg=NONE
-  hi DiagnosticSignInfo ctermfg=4 ctermbg=0 guifg=LightBlue guibg=NONE
-  hi NormalFloat guibg=none
-  hi FloatBorder guifg=gray guibg=none
+  hi! NormalFloat guibg=none
+  hi! FloatBorder guifg=gray guibg=none
 ]]

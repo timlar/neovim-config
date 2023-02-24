@@ -4,16 +4,15 @@ local diagnostics = null_ls.builtins.diagnostics
 
 null_ls.setup({
   sources = {
-    formatting.eslint_d,
+    -- formatting.eslint,
     formatting.fixjson,
     formatting.pg_format,
     formatting.prettierd,
-    formatting.rubocop,
     formatting.stylelint,
     formatting.terraform_fmt,
     formatting.yamlfmt,
 
-    diagnostics.eslint_d,
+    -- diagnostics.eslint,
     diagnostics.tsc,
     diagnostics.yamllint,
   },

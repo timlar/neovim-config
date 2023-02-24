@@ -1,6 +1,8 @@
 local opts = { noremap = true, silent = true }
 local map = vim.api.nvim_set_keymap
 
+vim.opt.termguicolors = true
+
 require('nvim-tree').setup {
   auto_reload_on_write = true,
   create_in_closed_folder = false,
@@ -9,9 +11,9 @@ require('nvim-tree').setup {
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
   ignore_buffer_on_setup = false,
-  open_on_setup = true,
-  open_on_setup_file = false,
-  open_on_tab = true, -- false,
+  -- open_on_setup = true,
+  -- open_on_setup_file = false,
+  -- open_on_tab = false,
   ignore_buf_on_tab_change = {},
   sort_by = 'name',
   root_dirs = {},
@@ -19,6 +21,9 @@ require('nvim-tree').setup {
   sync_root_with_cwd = false,
   reload_on_bufenter = false,
   respect_buf_cwd = false,
+  on_attach = "disable",
+  remove_keymaps = false,
+  select_prompts = false,
   view = {
     adaptive_size = false,
     centralize_selection = false,
@@ -33,6 +38,18 @@ require('nvim-tree').setup {
       custom_only = false,
       list = {},
     },
+    float = {
+      enable = false,
+      quit_on_focus_loss = true,
+      open_win_config = {
+        relative = "editor",
+        border = "rounded",
+        width = 30,
+        height = 30,
+        row = 1,
+        col = 1,
+      },
+    },
   },
   renderer = {
     add_trailing = false,
@@ -40,14 +57,17 @@ require('nvim-tree').setup {
     highlight_git = true,
     full_name = false,
     highlight_opened_files = 'none',
-    root_folder_modifier = ':~',
+    -- root_folder_modifier = ':~',
+    root_folder_label = ":~:s?$?/..?",
+    indent_width = 2,
     indent_markers = {
       enable = true,
       inline_arrows = true,
       icons = {
-        corner = '└',
+        corner = '╰', -- └
         edge = '│',
         item = '│',
+        bottom = "─",
         none = ' ',
       },
     },
@@ -63,27 +83,27 @@ require('nvim-tree').setup {
         git = false,
       },
       glyphs = {
-        default = '', -- 
+        default = '', --   
         symlink = '',
         bookmark = '',
         folder = {
-          arrow_closed = '',
-          arrow_open = '',
-          default = '', -- 
-          open = '', -- 
+          arrow_closed = '', --     
+          arrow_open = '', --     
+          default = '',
+          open = '',
           empty = '', -- 
           empty_open = '', -- 
           symlink = '', -- 
           symlink_open = '' -- 
         },
         git = {
-          unstaged = '•',
-          staged = '•',
+          unstaged = '', -- •
+          staged = '',
           unmerged = '',
           renamed = '➜',
-          untracked = '•',
-          deleted = '-',
-          ignored = '◌',
+          untracked = '',
+          deleted = '', --   
+          ignored = '',
         },
       },
     },
@@ -96,6 +116,7 @@ require('nvim-tree').setup {
   },
   update_focused_file = {
     enable = false,
+    debounce_delay = 15,
     update_root = false,
     ignore_list = {},
   },
@@ -107,27 +128,36 @@ require('nvim-tree').setup {
   diagnostics = {
     enable = false,
     show_on_dirs = false,
+    show_on_open_dirs = true,
     debounce_delay = 50,
+    severity = {
+      min = vim.diagnostic.severity.HINT,
+      max = vim.diagnostic.severity.ERROR,
+    },
     icons = {
-      hint = '',
+      hint = '', --  
       info = '',
-      warning = '',
-      error = '',
+      warning = '', -- 
+      error = '', --  
     },
   },
   filters = {
     dotfiles = false,
-    custom = { '.git', 'node_modules', '.cache' },
+    git_clean = false,
+    no_buffer = false,
+    custom = {},
     exclude = {},
   },
   filesystem_watchers = {
     enable = true,
     debounce_delay = 50,
+    ignore_dirs = {},
   },
   git = {
     enable = true,
     ignore = true,
     show_on_dirs = true,
+    show_on_open_dirs = true,
     timeout = 400,
   },
   actions = {
@@ -141,11 +171,21 @@ require('nvim-tree').setup {
       max_folder_discovery = 300,
       exclude = {},
     },
+    file_popup = {
+      open_win_config = {
+        col = 1,
+        row = 1,
+        relative = "cursor",
+        border = "shadow",
+        style = "minimal",
+      },
+    },
     open_file = {
       quit_on_open = false,
-      resize_window = false,
+      resize_window = true,
       window_picker = {
         enable = true,
+        picker = "default",
         chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
         exclude = {
           filetype = { 'notify', 'packer', 'qf', 'diff', 'fugitive', 'fugitiveblame' },
@@ -165,6 +205,16 @@ require('nvim-tree').setup {
     prefix = '[FILTER]: ',
     always_show_folders = true,
   },
+  tab = {
+    sync = {
+      open = false,
+      close = false,
+      ignore = {},
+    },
+  },
+  notify = {
+    threshold = vim.log.levels.INFO,
+  },
   log = {
     enable = false,
     truncate = false,
@@ -181,15 +231,32 @@ require('nvim-tree').setup {
   },
 }
 
--- TODO: Shortcut to set selected dir as root dir
-
 map('', '<f3>', ':NvimTreeToggle<cr>', opts)
 map('', '<f4>', ':NvimTreeFindFile<cr>', opts)
 
 -- A list of groups can be found at `:h nvim_tree_highlight`
-vim.cmd 'highlight NvimTreeFolderIcon guifg=#83a598'
-vim.cmd 'highlight NvimTreeFolderName guifg=#83a598'
-vim.cmd 'highlight NvimTreeIndentMarker guifg=#3c3836'
-vim.cmd 'highlight NvimTreeRootFolder guifg=#d65d0e'
-vim.cmd 'highlight NvimTreeWindowPicker gui=bold guifg=#282828 guibg=#83a598'
--- vim.cmd 'highlight NvimTreeNormal guibg=#3c3836'
+vim.cmd [[
+  hi! link NvimTreeFolderIcon Directory
+  hi! link NvimTreeFolderName Directory
+  hi! link NvimTreeIndentMarker VertSplit
+  hi! link NvimTreeRootFolder WarningSign
+  hi! link NvimTreeWindowPicker lualine_a_insert
+]]
+
+local function open_nvim_tree(data)
+  local directory = vim.fn.isdirectory(data.file) == 1
+  local real_file = vim.fn.filereadable(data.file) == 1
+  local no_name = data.file == '' and vim.bo[data.buf].buftype == ''
+
+  if real_file and not no_name then
+    return
+  end
+
+  if directory then
+    vim.cmd.cd(data.file)
+  end
+
+  require('nvim-tree.api').tree.toggle({ focus = true, find_file = true })
+end
+
+vim.api.nvim_create_autocmd({ 'VimEnter' }, { callback = open_nvim_tree })

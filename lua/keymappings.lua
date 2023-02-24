@@ -73,6 +73,10 @@ map('v', '*', [[y/\V<C-R>=escape(@",'/\')<cr><cr>]], opts)
 -- Disable the highlighting of search
 map('', '<leader>h', '<esc>:let @/ = ""<cr>:nohl<cr>', opts)
 
+-- Disable page scroll by shift+down and shift+-up
+map('', '<s-up>', 'k', opts)
+map('', '<s-down>', 'j', opts)
+
 -- Sort CSS-properties
 map('', '<leader>ss', '<esc>vi{:!sort<cr>', opts)
 
@@ -99,9 +103,6 @@ map('', '<leader>yd', ':let @*=expand("%:p:h")<cr>:echo "The directory name was 
 
 -- Ruby hash syntax conversion
 map('', '<f9>', [[:%s/:\([^ ]*\)\(\s*\)=>/\1:/gc<cr>]], opts)
-
--- Generate ctags
-map('', '<f10>', ':!ctags -R --exclude=.git --exclude=logs --exclude=doc --exclude=tmp . $(bundle list --paths)<cr>', opts)
 
 -- Open links in browser
 map('n', 'gx', 'yiW:!open <cWORD><cr>', opts)

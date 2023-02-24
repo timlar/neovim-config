@@ -1,5 +1,5 @@
 vim.g.vrc_trigger = '<f5>'
-vim.g.vrc_auto_format_response_patterns = { json = 'python -m json.tool' }
+vim.g.vrc_auto_format_response_patterns = { json = 'python3 -m json.tool' }
 vim.g.vrc_auto_format_uhex = 1
 vim.g.vrc_output_buffer_name = 'response.json'
 
