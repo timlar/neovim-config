@@ -19,7 +19,7 @@ map('i', '<f1>', '<esc>:w!<cr>', opts)
 map('i', '<f2>', '<esc>:w!<cr>', opts)
 
 -- Spellcheck
-map('', '<leader>ts', '<esc>:set spell!<cr>:set spell?<cr>', opts)
+-- map('', '<leader>ts', '<esc>:set spell!<cr>:set spell?<cr>', opts)
 
 -- Create a new tab
 map('', '<c-t>', ':tabnew<cr>', opts)
@@ -78,7 +78,7 @@ map('', '<s-up>', 'k', opts)
 map('', '<s-down>', 'j', opts)
 
 -- Sort CSS-properties
-map('', '<leader>ss', '<esc>vi{:!sort<cr>', opts)
+map('', '<leader>so', '<esc>vi{:!sort<cr>', opts)
 
 -- Set filetype
 -- map('', '<leader>fr', ':set ft=ruby<cr>', opts)

@@ -1,9 +1,8 @@
-require 'colorizer'.setup({}, { mode = 'foreground' })
+require('colorizer').setup({}, { mode = 'foreground' })
+
+-- :ColorizerToggle
 
 -- Gruvbox theme colors
---
--- :ColorizerToggle
---
 -- --=> #282828
 -- --=> #3c3836
 -- --=> #504945

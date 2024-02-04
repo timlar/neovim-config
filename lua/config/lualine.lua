@@ -20,7 +20,7 @@ require('lualine').setup {
       'diff',
       {
         'diagnostics',
-        symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
+        symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
         colored = true,
       }
     },
@@ -41,7 +41,14 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {},
+  tabline = {
+    -- lualine_a = { { 'tabs', mode = 2 } },
+    -- lualine_b = {},
+    -- lualine_c = {},
+    -- lualine_x = {},
+    -- lualine_y = {},
+    -- lualine_z = {}
+  },
   winbar = {},
   inactive_winbar = {},
   extensions = { 'nvim-tree' }

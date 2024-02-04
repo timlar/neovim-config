@@ -7,12 +7,17 @@ cmp.setup({
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
   mapping = {
     ['<cr>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = false
     }),
-    ['<Tab>'] = cmp.mapping(function(fallback)
+    ['<tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expandable() then
@@ -23,7 +28,7 @@ cmp.setup({
         fallback()
       end
     end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+    ['<s-tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
@@ -34,17 +39,11 @@ cmp.setup({
     end, { 'i', 's' }),
   },
   sources = cmp.config.sources({
-    { name = 'luasnip' },
-    { name = 'nvim_lsp' },
-    { name = 'path' },
-  }, {
-    { name = 'buffer' },
+    { name = 'luasnip', keyword_length = 1 },
+    { name = 'nvim_lsp', keyword_length = 2 },
+    { name = 'path', keyword_length = 4 },
+    { name = 'buffer', keyword_length = 3 },
   }),
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
   formatting = {
     format = lspkind.cmp_format({
       mode = 'symbol_text',

@@ -1,10 +1,9 @@
 vim.o.filetype = 'off' -- Disable filetypes
 
 vim.g.loaded_matchparen = 1 -- Disable highlighting of matching brackets
-vim.g.mapleader = ','
 vim.g.macvim_skip_cmd_opt_movement = 1
 vim.g.markdown_fenced_languages = {
-  'bash=sh', 'config', 'css', 'dockerfile', 'git', 'gitconfig', 'html', 'javascript', 'ruby', 'sass', 'scss', 'spec',
+  'bash', 'sh', 'config', 'css', 'dockerfile', 'git', 'gitconfig', 'html', 'javascript', 'ruby', 'sass', 'scss', 'css', 'spec',
   'sql', 'typescript', 'vue', 'xhtml', 'yaml', 'zsh'
 }
 
@@ -12,10 +11,10 @@ vim.cmd 'filetype plugin on'
 vim.cmd 'filetype plugin indent on'
 vim.cmd 'syntax on'
 
-vim.o.background = 'dark'
-vim.o.termguicolors = true
+vim.o.base16colorspace = 256 -- Access colors present in 256 colorspace
 
-vim.cmd 'colorscheme base16-gruvbox-dark-medium'
+-- vim.cmd 'colorscheme base16-gruvbox-dark-medium'
+vim.cmd 'colorscheme gruvbox'
 
 -- Improve performance
 vim.cmd 'syn sync maxlines=256' -- 200
@@ -45,6 +44,7 @@ vim.o.fileformats = 'unix,mac,dos'
 vim.o.fileencodings = 'utf8,cp1251'
 vim.bo.fileformat = 'unix'
 vim.o.encoding = 'utf-8'
+vim.o.t_md = nil
 
 vim.bo.iskeyword = '@,48-57,_,192-255' -- Fix: It needs for define correct position of the word when press 'w', 'b' or '*'
 vim.o.backspace = 'indent,eol,start'
@@ -110,7 +110,7 @@ vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
 vim.o.smarttab = true
-vim.o.expandtab = true -- use spaces instead of tabs
+vim.o.expandtab = true
 vim.o.shiftround = true
 
 vim.bo.autoindent = true
@@ -118,7 +118,7 @@ vim.bo.smartindent = true
 
 vim.o.autoread = true
 
-vim.o.completeopt = 'menu,menuone,noselect' -- 'menu,menuone,longest,preview'
+vim.o.completeopt = 'noinsert,menuone,noselect'
 
 vim.o.scrolloff = 0
 vim.o.sidescrolloff = 0
@@ -136,12 +136,26 @@ vim.o.cmdheight = 2
 
 vim.wo.signcolumn = 'yes' -- Always show the signcolumn
 
+vim.o.updatetime = 250
+vim.o.ttimeoutlen = 0
+
 if vim.fn.substitute(vim.fn.system('uname'), '\n', '', '') == 'Darwin' then
   vim.o.clipboard = 'unnamedplus' -- Use system clipboard
 end
 
 -- Set current directory as root
 vim.o.autochdir = false
+
+vim.diagnostic.config({
+  virtual_text = false,
+  update_in_insert = true,
+  float = {
+    border = 'rounded',
+    header = '',
+    prefix = '',
+    source = 'always',
+  }
+})
 
 vim.cmd [[
   augroup SetRootDirectory
@@ -156,15 +170,10 @@ vim.cmd [[
   augroup END
 ]]
 
--- Highlight search results
-vim.cmd [[
-  augroup ALEHighlight
-    hi Search guifg=#fbf2c7 guibg=#d65d0e
-  augroup END
-]]
-
 -- Don't show tildas on empty lines
-vim.cmd 'hi NonText guifg=bg'
+vim.cmd [[
+  hi NonText guifg=bg
+]]
 
 -- Fix: Set filetype for Vue files
 vim.cmd [[
@@ -175,21 +184,58 @@ vim.cmd [[
 
 -- Gruvbox color theme fixes
 vim.cmd [[
-  hi! VertSplit guibg=none
+  hi! Comment cterm=italic gui=italic
+  hi! CursorLine ctermbg=none guibg=none
   hi! LineNr guibg=none
   hi! SignColumn guibg=none
-  hi! GitGutterAdd guibg=none
-  hi! GitGutterChange guibg=none
-  hi! GitGutterDelete guibg=none
-  hi! GitGutterDelete guibg=none
-  hi! GitGutterChange guibg=none
   hi! Underlined cterm=none gui=none
+  hi! link VertSplit Whitespace
+
   hi! DiagnosticUnderlineError cterm=undercurl gui=undercurl
   hi! DiagnosticUnderlineHint cterm=undercurl gui=undercurl
   hi! DiagnosticUnderlineInfo cterm=undercurl gui=undercurl
   hi! DiagnosticUnderlineWarn cterm=undercurl gui=undercurl
-  hi! Comment cterm=italic gui=italic
-  hi! CursorLine ctermbg=none guibg=none
+
+  hi! DiagnosticSignError guifg=#fb4934 guibg=none " was linked to GruvboxRedSign
+  hi! DiagnosticSignHint guifg=#8ec07c guibg=none " was linked to GruvboxAquaSign
+  hi! DiagnosticSignInfo guifg=#83a598 guibg=none " was linked to GruvboxBlueSign
+  hi! DiagnosticSignWarn guifg=#fabd2f guibg=none " was linked to GruvboxYellowSign
+]]
+
+-- gitsigns
+-- vim.cmd [[
+--   hi! GitSignsAdd guibg=none ctermbg=none
+--   hi! GitSignsChange guibg=none ctermbg=none
+--   hi! GitSignsDelete guibg=none ctermbg=none
+--   hi! GitSignsChangeDelete guibg=none ctermbg=none
+-- ]]
+
+-- nvim-lspconfig: gruvbox colortheme fixes
+vim.cmd [[
+  hi! NormalFloat guibg=none
+  hi! FloatBorder guifg=gray guibg=none
+]]
+
+-- nvim-tree
+-- A list of groups can be found at `:h nvim-tree-highlight`
+-- hi! link NvimTreeFolderIcon Directory
+-- hi! link NvimTreeFolderName Directory
+-- hi! link NvimTreeFolderArrowClosed Folded
+-- hi! link NvimTreeFolderArrowOpen Folded
+-- hi! link NvimTreeIndentMarker VertSplit
+-- hi! link NvimTreeRootFolder WarningSign
+-- hi! link NvimTreeWindowPicker lualine_a_insert
+-- hi! link NvimTreeWinSeparator VertSplit
+-- hi! link NvimTreeEndOfBuffer NonText
+vim.cmd [[
+  hi! link NvimTreeIndentMarker VertSplit
+  hi! link NvimTreeWinSeparator VertSplit
+  hi! link NvimTreeWindowPicker lualine_a_insert
+]]
+
+-- telescope
+vim.cmd [[
+  hi! link TelescopeMatching Label
 ]]
 
 -- Temporarily disable HTML error highlighting inside vue templates

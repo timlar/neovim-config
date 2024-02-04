@@ -1,154 +1,188 @@
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+local opts = {
+  install = { colorscheme = { 'base16-gruvbox-dark-medium' } }, -- tokyonight
+  ui = {
+    border = 'rounded',
+  },
+  change_detection = {
+    enabled = false,
+    notify = false,
+  },
+  -- performance = {
+  --   rtp = {
+  --     disabled_plugins = {
+  --       '2html_plugin',
+  --       'getscript',
+  --       'getscriptPlugin',
+  --       'gzip',
+  --       'logipat',
+  --       'matchit',
+  --       'matchparen',
+  --       'netrw',
+  --       'netrwFileHandlers',
+  --       'netrwPlugin',
+  --       'netrwSettings',
+  --       'rrhelper',
+  --       'spellfile_plugin',
+  --       'tar',
+  --       'tarPlugin',
+  --       'vimball',
+  --       'vimballPlugin',
+  --       'zip',
+  --       'zipPlugin',
+  --     },
+  --   },
+  -- },
+  -- checker = { enabled = false },
+}
 
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
-end
+require('lazy').setup({
+  -- 'JoosepAlviste/nvim-ts-context-commentstring',
+  'tpope/vim-commentary',
+  'tpope/vim-abolish',
+  'tpope/vim-fugitive',
+  'tpope/vim-repeat',
+  'tpope/vim-surround',
+  'wellle/targets.vim',
+  'dstein64/vim-startuptime',
 
-vim.cmd 'packadd packer.nvim'
-vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
+  { 'echasnovski/mini.comment', version = false },
 
-require('plugins.packer')
+  -- { 'base16-project/base16-vim', priority = 1000 },
+  {
+    'ellisonleao/gruvbox.nvim',
+    priority = 1000,
+    config = function() require('config.gruvbox') end
+  },
 
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+  { 'tpope/vim-endwise', ft = { 'ruby' } },
+  { 'tpope/vim-rails', ft = { 'ruby' } },
 
-require('packer').startup(function()
-  use { 'wbthomason/packer.nvim', opt = true }
-  use 'AndrewRadev/splitjoin.vim'
-  use 'base16-project/base16-vim'
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
-  use 'tpope/vim-commentary'
-  use 'tpope/vim-abolish'
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-repeat'
-  use 'tpope/vim-surround'
-  use 'wellle/targets.vim'
-  use 'dstein64/vim-startuptime'
-  use 'lewis6991/impatient.nvim'
+  {
+    'kyazdani42/nvim-tree.lua',
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    config = function() require('config.nvim-tree') end
+  },
 
-  use { 'tpope/vim-endwise', ft = { 'ruby' } }
-  use { 'tpope/vim-rails', ft = { 'ruby' } }
-
-  use {
-    'lukas-reineke/indent-blankline.nvim',
-    config = function() require('plugins.indent-blankline') end
-  }
-
-  use {
+  {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-    config = function() require('plugins.nvim-lualine') end
-  }
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    config = function() require('config.lualine') end
+  },
 
-  use {
-    'ntpeters/vim-better-whitespace',
-    config = function() require('plugins.vim-better-whitespace') end
-  }
-
-  use {
+  {
     'mattn/emmet-vim',
     ft = { 'erb', 'html', 'vue' },
-    config = function() require('plugins.emmet-vim') end
-  }
+    config = function() require('config.emmet-vim') end
+  },
 
-  use {
+  {
+    'lewis6991/gitsigns.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function() require('config.gitsigns') end
+  },
+
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function() require('config.indent-blankline') end
+  },
+
+  -- {
+  --   'norcalli/nvim-colorizer.lua',
+  --   config = function() require('config.nvim-colorizer') end
+  -- },
+
+  {
+    'lifepillar/pgsql.vim',
+    ft = { 'sql', 'psql' },
+    config = function() require('config.pgsql') end
+  },
+
+  {
+    'AndrewRadev/splitjoin.vim',
+    config = function() require('config.splitjoin') end
+  },
+
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function() require('config.telescope') end
+  },
+
+  {
+    'ntpeters/vim-better-whitespace',
+    config = function() require('config.vim-better-whitespace') end
+  },
+
+  {
     'junegunn/vim-easy-align',
-    config = function() require('plugins.vim-easy-align') end
-  }
+    config = function() require('config.vim-easy-align') end
+  },
 
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-    config = function() require('plugins.nvim-tree') end
-  }
-
-  use {
+  {
     'diepm/vim-rest-console',
     ft = { 'rest' },
-    config = function() require('plugins.vim-rest-console') end
-  }
+    config = function() require('config.vim-rest-console') end
+  },
 
-  use {
+  {
     'benmills/vimux',
-    config = function() require('plugins.vimux') end
-  }
-
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function() require('plugins.telescope') end
-  }
-
-  use {
-    'norcalli/nvim-colorizer.lua',
-    config = function() require('plugins.nvim-colorizer') end
-  }
-
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function() require('plugins.gitsigns') end
-  }
+    config = function() require('config.vimux') end
+  },
 
   -- Linters and Formatters --------------------------------------------------------------------------------------------
 
-  use {
+  {
+    'L3MON4D3/LuaSnip',
+    config = function() require('config.luasnip') end
+  },
+
+  {
     'neovim/nvim-lspconfig',
-    requires = {
+    dependencies = {
       'folke/lsp-colors.nvim',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-cmdline',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
-      'williamboman/mason-lspconfig.nvim',
       'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
       {
         'hrsh7th/nvim-cmp',
-        requires = { 'onsails/lspkind.nvim' },
-        config = function() require('plugins.nvim-cmp') end
+        dependencies = {
+          'onsails/lspkind.nvim',
+          'hrsh7th/cmp-buffer',
+          'hrsh7th/cmp-cmdline',
+          'hrsh7th/cmp-nvim-lsp',
+          'hrsh7th/cmp-path',
+          'saadparwaiz1/cmp_luasnip',
+        },
+        config = function() require('config.nvim-cmp') end
       },
       {
-        'jose-elias-alvarez/null-ls.nvim',
-        config = function() require('plugins.null-ls') end
+        'nvimdev/guard.nvim',
+        dependencies = { 'nvimdev/guard-collection' },
+        config = function() require('config.guard') end
       },
       {
-        'L3MON4D3/LuaSnip',
-        requires = { 'saadparwaiz1/cmp_luasnip' },
-        config = function() require('plugins.luasnip') end
-      }
+        'j-hui/fidget.nvim',
+        config = function() require('config.fidget') end
+      },
     },
-    config = function() require('plugins.nvim-lspconfig') end
-  }
+    config = function() require('config.nvim-lspconfig') end
+  },
 
   -- Syntax Highlighting -----------------------------------------------------------------------------------------------
 
-  use {
+  { 'chr4/nginx.vim', ft = { 'nginx' } },
+  { 'ericpruitt/tmux.vim', ft = { 'tmux' } },
+  { 'hashivim/vim-terraform', ft = { 'tf', 'hcl', 'tfvars', 'terraformrc', 'tfstate', 'terraform' } },
+  { 'keith/rspec.vim', ft = { 'rspec' } },
+  { 'tbastos/vim-lua', ft = { 'lua' } },
+  { 'fatih/vim-go', ft = { 'go' } },
+
+  {
     'nvim-treesitter/nvim-treesitter',
-    requires = {
+    dependencies = {
       'p00f/nvim-ts-rainbow',
-      {
-        'nvim-treesitter/nvim-treesitter-textobjects',
-        after = { 'nvim-treesitter' }
-      },
+      'nvim-treesitter/nvim-treesitter-textobjects'
     },
-    config = function() require('plugins.nvim-treesitter') end
+    build = ':TSUpdate',
+    config = function() require('config.nvim-treesitter') end
   }
-  -- use { 'nvim-treesitter/playground' } -- :TSPlaygroundToggle
-
-  use { 'chr4/nginx.vim', ft = { 'nginx' } }
-  use { 'ericpruitt/tmux.vim', ft = { 'tmux' } }
-  use { 'hashivim/vim-terraform', ft = { 'tf', 'hcl', 'tfvars', 'terraformrc', 'tfstate', 'terraform' } }
-  use { 'keith/rspec.vim', ft = { 'rspec' } }
-  use { 'tbastos/vim-lua', ft = { 'lua' } }
-  use { 'fatih/vim-go', ft = { 'go' } }
-
-  use {
-    'lifepillar/pgsql.vim',
-    ft = { 'sql', 'psql' },
-    config = function() require('plugins.pgsql') end
-  }
-end)
+}, opts)
