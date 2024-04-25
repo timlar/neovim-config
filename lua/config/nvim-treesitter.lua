@@ -7,7 +7,7 @@ vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 require('nvim-treesitter.configs').setup {
   ensure_installed = {
     'bash', 'comment', 'css', 'dockerfile', 'go', 'graphql', 'html', 'javascript', 'jsdoc', 'json',
-    'jsonc', 'lua', 'python', 'regex', 'ruby', 'scss', 'toml', 'typescript', 'vue', 'yaml'
+    'jsonc', 'lua', 'python', 'regex', 'ruby', 'scss', 'toml', 'typescript', 'vue', 'yaml', 'solidity'
   },
   -- ensure_installed = 'all',
   highlight = {

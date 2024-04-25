@@ -1,7 +1,10 @@
 local opts = {
-  install = { colorscheme = { 'base16-gruvbox-dark-medium' } }, -- tokyonight
-  ui = {
-    border = 'rounded',
+  install = { colorscheme = { 'base16-gruvbox-dark-medium' } },
+  -- ui = {
+  --   border = 'rounded',
+  -- },
+  checker = {
+    enabled = false,
   },
   change_detection = {
     enabled = false,
@@ -36,23 +39,24 @@ local opts = {
 }
 
 require('lazy').setup({
+  -- { 'base16-project/base16-vim', priority = 1000 },
+  {
+    'ellisonleao/gruvbox.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function() require('config.gruvbox') end
+  },
+
   -- 'JoosepAlviste/nvim-ts-context-commentstring',
+  { 'echasnovski/mini.comment', version = false },
+
   'tpope/vim-commentary',
   'tpope/vim-abolish',
   'tpope/vim-fugitive',
   'tpope/vim-repeat',
   'tpope/vim-surround',
   'wellle/targets.vim',
-  'dstein64/vim-startuptime',
-
-  { 'echasnovski/mini.comment', version = false },
-
-  -- { 'base16-project/base16-vim', priority = 1000 },
-  {
-    'ellisonleao/gruvbox.nvim',
-    priority = 1000,
-    config = function() require('config.gruvbox') end
-  },
+  -- 'dstein64/vim-startuptime',
 
   { 'tpope/vim-endwise', ft = { 'ruby' } },
   { 'tpope/vim-rails', ft = { 'ruby' } },
@@ -133,11 +137,14 @@ require('lazy').setup({
 
   {
     'L3MON4D3/LuaSnip',
+    ft = { 'ruby', 'rspec', 'javascript', 'typescript', 'vue', 'css', 'scss', 'sass', 'html' },
     config = function() require('config.luasnip') end
   },
 
   {
     'neovim/nvim-lspconfig',
+    lazy = true,
+    ft = { 'ruby', 'rspec', 'javascript', 'typescript', 'vue', 'json', 'yaml', 'css', 'scss', 'sass' },
     dependencies = {
       'folke/lsp-colors.nvim',
       'williamboman/mason.nvim',
@@ -182,7 +189,7 @@ require('lazy').setup({
       'p00f/nvim-ts-rainbow',
       'nvim-treesitter/nvim-treesitter-textobjects'
     },
-    build = ':TSUpdate',
+    -- build = ':TSUpdate',
     config = function() require('config.nvim-treesitter') end
   }
 }, opts)

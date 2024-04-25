@@ -25,13 +25,13 @@ Make sure everything is ok
 Install neovim plugins
 
 ```vim
-:PackerInstall
+:Lazy
 ```
 
 ## How to update packages:
 
 ```vim
-:PackerUpdate
+:Lazy
 :TSUpdate
 :Mason
 ```
