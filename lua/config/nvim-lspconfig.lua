@@ -1,30 +1,20 @@
 -- $ gem install solargraph solargraph-rails
 -- $ brew install lua-language-server pgformatter stylua yamllint
 -- $ npm install -g @fsouza/prettierd @tailwindcss/language-server @volar/vue-language-server dockerfile-language-server-nodejs eslint eslint_d fixjson graphql-language-service-cli prettier stylelint typescript typescript-language-server yaml-language-server
+-- $ npm i -g @vue/language-server @vue/typescript-plugin
 
 require('mason').setup({
   ui = {
     border = 'rounded',
-  }
-})
+    icons = {
+      package_pending = ' ',
+      package_installed = ' ',
+      package_uninstalled = ' ',
+    },
+  },
 
--- ◍ dockerfile-language-server
--- ◍ eslint-lsp
--- ◍ eslint_d
--- ◍ fixjson
--- ◍ graphql-language-service-cli
--- ◍ json-lsp
--- ◍ lua-language-server
--- ◍ prettier
--- ◍ prettierd
--- ◍ stylelint-lsp
--- ◍ tailwindcss-language-server
--- ◍ tflint
--- ◍ typescript-language-server
--- ◍ vue-language-server
--- ◍ yaml-language-server
--- ◍ yamlfmt
--- ◍ yamllint
+  max_concurrent_installers = 10,
+})
 
 local lspconfig = require('lspconfig')
 
@@ -63,7 +53,6 @@ end
 
 local servers = {
   'graphql',
-  'tailwindcss',
   'eslint',
 }
 
@@ -86,9 +75,33 @@ lspconfig.solargraph.setup({
   cmd = { 'solargraph', 'stdio' },
 })
 
+-- lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
+  on_attach = on_attach,
+  init_options = {
+    plugins = {
+      {
+        name = '@vue/typescript-plugin',
+        location = '/path/to/@vue/language-server',
+        languages = { 'vue' },
+      },
+    },
+    preferences = {
+      disableSuggestions = true,
+    },
+  },
+})
+
+local mason_registry = require('mason-registry')
+local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+
+-- https://github.com/vuejs/language-tools
 lspconfig.volar.setup({
   on_attach = on_attach,
   init_options = {
+    vue = {
+      hybridMode = false,
+    },
     documentFeatures = {
       documentFormatting = false
     }
@@ -106,15 +119,6 @@ lspconfig.volar.setup({
     scss = {
       format = { enable = false },
       lint = { unknownAtRules = 'ignore' }
-    },
-  },
-})
-
-lspconfig.tsserver.setup({
-  on_attach = on_attach,
-  init_options = {
-    preferences = {
-      disableSuggestions = true,
     },
   },
 })

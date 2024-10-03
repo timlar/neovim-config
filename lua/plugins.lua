@@ -1,8 +1,6 @@
 local opts = {
-  install = { colorscheme = { 'base16-gruvbox-dark-medium' } },
-  -- ui = {
-  --   border = 'rounded',
-  -- },
+  -- install = { colorscheme = { 'base16-gruvbox-dark-medium' } },
+  install = { colorscheme = { 'gruvbox' } },
   checker = {
     enabled = false,
   },
@@ -10,32 +8,49 @@ local opts = {
     enabled = false,
     notify = false,
   },
-  -- performance = {
-  --   rtp = {
-  --     disabled_plugins = {
-  --       '2html_plugin',
-  --       'getscript',
-  --       'getscriptPlugin',
-  --       'gzip',
-  --       'logipat',
-  --       'matchit',
-  --       'matchparen',
-  --       'netrw',
-  --       'netrwFileHandlers',
-  --       'netrwPlugin',
-  --       'netrwSettings',
-  --       'rrhelper',
-  --       'spellfile_plugin',
-  --       'tar',
-  --       'tarPlugin',
-  --       'vimball',
-  --       'vimballPlugin',
-  --       'zip',
-  --       'zipPlugin',
-  --     },
-  --   },
-  -- },
-  -- checker = { enabled = false },
+  ui = {
+    -- border = 'rounded',
+    icons = {
+      ft = '',
+      lazy = '󰂠 ',
+      loaded = ' ',
+      not_loaded = ' ',
+    },
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        '2html_plugin',
+        'bugreport',
+        'compiler',
+        'ftplugin',
+        'getscript',
+        'getscriptPlugin',
+        'gzip',
+        'logipat',
+        'matchit',
+        'matchparen',
+        'netrw',
+        'netrwFileHandlers',
+        'netrwPlugin',
+        'netrwSettings',
+        'optwin',
+        'rplugin',
+        'rrhelper',
+        'spellfile_plugin',
+        'synmenu',
+        'syntax',
+        'tar',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'vimball',
+        'vimballPlugin',
+        'zip',
+        'zipPlugin',
+      },
+    },
+  },
 }
 
 require('lazy').setup({
@@ -47,16 +62,24 @@ require('lazy').setup({
     config = function() require('config.gruvbox') end
   },
 
-  -- 'JoosepAlviste/nvim-ts-context-commentstring',
-  { 'echasnovski/mini.comment', version = false },
+  {
+    'numToStr/Comment.nvim',
+    event = 'BufRead',
+    dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
+    config = function() require('config.comment') end
+  },
 
-  'tpope/vim-commentary',
-  'tpope/vim-abolish',
-  'tpope/vim-fugitive',
-  'tpope/vim-repeat',
-  'tpope/vim-surround',
-  'wellle/targets.vim',
-  -- 'dstein64/vim-startuptime',
+  { 'tpope/vim-abolish', event = 'BufRead' },
+  { 'tpope/vim-fugitive', event = 'BufRead' },
+  { 'tpope/vim-repeat', event = 'BufRead' },
+  { 'tpope/vim-surround', event = 'BufRead' },
+  { 'wellle/targets.vim', event = 'BufRead' },
+
+  {
+    'ntpeters/vim-better-whitespace',
+    event = 'BufRead',
+    config = function() require('config.vim-better-whitespace') end
+  },
 
   { 'tpope/vim-endwise', ft = { 'ruby' } },
   { 'tpope/vim-rails', ft = { 'ruby' } },
@@ -81,12 +104,14 @@ require('lazy').setup({
 
   {
     'lewis6991/gitsigns.nvim',
+    event = 'BufRead',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function() require('config.gitsigns') end
   },
 
   {
     'lukas-reineke/indent-blankline.nvim',
+    event = 'BufRead',
     config = function() require('config.indent-blankline') end
   },
 
@@ -103,22 +128,20 @@ require('lazy').setup({
 
   {
     'AndrewRadev/splitjoin.vim',
+    event = 'BufRead',
     config = function() require('config.splitjoin') end
   },
 
   {
     'nvim-telescope/telescope.nvim',
+    event = 'BufRead',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function() require('config.telescope') end
   },
 
   {
-    'ntpeters/vim-better-whitespace',
-    config = function() require('config.vim-better-whitespace') end
-  },
-
-  {
     'junegunn/vim-easy-align',
+    event = 'BufRead',
     config = function() require('config.vim-easy-align') end
   },
 
@@ -130,6 +153,7 @@ require('lazy').setup({
 
   {
     'benmills/vimux',
+    event = 'BufRead',
     config = function() require('config.vimux') end
   },
 
@@ -185,6 +209,7 @@ require('lazy').setup({
 
   {
     'nvim-treesitter/nvim-treesitter',
+    event = 'BufRead',
     dependencies = {
       'p00f/nvim-ts-rainbow',
       'nvim-treesitter/nvim-treesitter-textobjects'

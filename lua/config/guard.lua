@@ -1,6 +1,6 @@
-local ft = require('guard.filetype')
+-- local ft = require('guard.filetype')
 
-ft('typescript,javascript,vue'):fmt('prettier')
+-- ft('typescript,javascript,vue'):fmt('prettier')
 
 require('guard').setup {
   fmt_on_save = false,

@@ -11,8 +11,6 @@ vim.cmd 'filetype plugin on'
 vim.cmd 'filetype plugin indent on'
 vim.cmd 'syntax on'
 
-vim.o.base16colorspace = 256 -- Access colors present in 256 colorspace
-
 -- vim.cmd 'colorscheme base16-gruvbox-dark-medium'
 vim.cmd 'colorscheme gruvbox'
 
@@ -44,7 +42,6 @@ vim.o.fileformats = 'unix,mac,dos'
 vim.o.fileencodings = 'utf8,cp1251'
 vim.bo.fileformat = 'unix'
 vim.o.encoding = 'utf-8'
-vim.o.t_md = nil
 
 vim.bo.iskeyword = '@,48-57,_,192-255' -- Fix: It needs for define correct position of the word when press 'w', 'b' or '*'
 vim.o.backspace = 'indent,eol,start'

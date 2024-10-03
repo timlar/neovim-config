@@ -7,10 +7,10 @@ map('', '<f4>', ':NvimTreeFindFile<cr>', opts)
 require('nvim-tree').setup {
   auto_reload_on_write = true,
   create_in_closed_folder = false,
-  disable_netrw = false,
-  hijack_cursor = false,
+  disable_netrw = true,
+  hijack_cursor = true,
   hijack_netrw = true,
-  hijack_unnamed_buffer_when_opening = false,
+  hijack_unnamed_buffer_when_opening = true,
   ignore_buf_on_tab_change = {},
   sort_by = 'case_sensitive', -- 'name',
   root_dirs = {},
@@ -47,7 +47,7 @@ require('nvim-tree').setup {
     group_empty = false,
     highlight_git = true,
     full_name = false,
-    highlight_opened_files = 'none',
+    highlight_opened_files = 'all',
     root_folder_label = ":~:s?$?/..?",
     indent_width = 2,
     indent_markers = {
@@ -101,7 +101,7 @@ require('nvim-tree').setup {
     symlink_destination = true,
   },
   hijack_directories = {
-    enable = true,
+    enable = false,
     auto_open = true,
   },
   update_focused_file = {
