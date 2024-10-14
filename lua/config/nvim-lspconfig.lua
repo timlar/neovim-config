@@ -1,7 +1,6 @@
 -- $ gem install solargraph solargraph-rails
 -- $ brew install lua-language-server pgformatter stylua yamllint
--- $ npm install -g @fsouza/prettierd @tailwindcss/language-server @volar/vue-language-server dockerfile-language-server-nodejs eslint eslint_d fixjson graphql-language-service-cli prettier stylelint typescript typescript-language-server yaml-language-server
--- $ npm i -g @vue/language-server @vue/typescript-plugin
+-- :Mason
 
 require('mason').setup({
   ui = {
@@ -43,6 +42,11 @@ map('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ float = { border = "rounded"
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+local lsp_flags = {
+  allow_incremental_sync = true,
+  debounce_text_changes = 150,
+}
+
 local on_attach = function(client, bufnr)
   client.server_capabilities.document_formatting = false
   client.server_capabilities.document_range_formatting = false
@@ -59,6 +63,7 @@ local servers = {
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
+    flags = lsp_flags
   }
 end
 
@@ -73,9 +78,14 @@ lspconfig.solargraph.setup({
     }
   },
   cmd = { 'solargraph', 'stdio' },
+  flags = lsp_flags
 })
 
--- lspconfig.tsserver.setup({
+lspconfig.emmet_ls.setup({
+  on_attach = on_attach,
+  flags = lsp_flags
+})
+
 lspconfig.ts_ls.setup({
   on_attach = on_attach,
   init_options = {
@@ -90,6 +100,7 @@ lspconfig.ts_ls.setup({
       disableSuggestions = true,
     },
   },
+  flags = lsp_flags
 })
 
 local mason_registry = require('mason-registry')
@@ -106,8 +117,8 @@ lspconfig.volar.setup({
       documentFormatting = false
     }
   },
-  -- filetypes = { 'typescript', 'javascript', 'vue', 'json' },
-  filetypes = { 'vue' },
+  -- filetypes = { 'vue' },
+  filetypes = { 'typescript', 'javascript', 'vue', 'json'},
   settings = {
     html = {
       format = { enable = false },
@@ -121,10 +132,12 @@ lspconfig.volar.setup({
       lint = { unknownAtRules = 'ignore' }
     },
   },
+  flags = lsp_flags
 })
 
 lspconfig.jsonls.setup({
   on_attach = on_attach,
+  flags = lsp_flags,
   root_dir = function(fname)
     return vim.loop.cwd()
   end

@@ -9,7 +9,6 @@ require('nvim-treesitter.configs').setup {
     'bash', 'comment', 'css', 'dockerfile', 'go', 'graphql', 'html', 'javascript', 'jsdoc', 'json',
     'jsonc', 'lua', 'python', 'regex', 'ruby', 'scss', 'toml', 'typescript', 'vue', 'yaml', 'solidity'
   },
-  -- ensure_installed = 'all',
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = true

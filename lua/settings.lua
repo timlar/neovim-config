@@ -11,7 +11,6 @@ vim.cmd 'filetype plugin on'
 vim.cmd 'filetype plugin indent on'
 vim.cmd 'syntax on'
 
--- vim.cmd 'colorscheme base16-gruvbox-dark-medium'
 vim.cmd 'colorscheme gruvbox'
 
 -- Improve performance

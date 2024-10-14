@@ -1,4 +1,5 @@
 local function prequire(...)
+
 local status, lib = pcall(require, ...)
 
 require('luasnip.loaders.from_vscode').load({ paths = { './lua/snippets' } })

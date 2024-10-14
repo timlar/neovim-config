@@ -8,21 +8,6 @@
     ],
     "description": "<template> element"
   },
-  "script:ts": {
-    "prefix": "script:ts",
-    "body": [
-      "<script lang=\"ts\">",
-      "import { defineComponent } from 'vue'",
-      "",
-      "export default defineComponent({",
-      "\tsetup() {",
-      "\t\t$0",
-      "\t},",
-      "})",
-      "</script>"
-    ],
-    "description": "<script> element"
-  },
   "script": {
     "prefix": "script",
     "body": [

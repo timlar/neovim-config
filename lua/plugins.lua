@@ -1,5 +1,4 @@
 local opts = {
-  -- install = { colorscheme = { 'base16-gruvbox-dark-medium' } },
   install = { colorscheme = { 'gruvbox' } },
   checker = {
     enabled = false,
@@ -54,7 +53,6 @@ local opts = {
 }
 
 require('lazy').setup({
-  -- { 'base16-project/base16-vim', priority = 1000 },
   {
     'ellisonleao/gruvbox.nvim',
     lazy = false,
@@ -94,12 +92,6 @@ require('lazy').setup({
     'nvim-lualine/lualine.nvim',
     dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function() require('config.lualine') end
-  },
-
-  {
-    'mattn/emmet-vim',
-    ft = { 'erb', 'html', 'vue' },
-    config = function() require('config.emmet-vim') end
   },
 
   {
@@ -162,6 +154,7 @@ require('lazy').setup({
   {
     'L3MON4D3/LuaSnip',
     ft = { 'ruby', 'rspec', 'javascript', 'typescript', 'vue', 'css', 'scss', 'sass', 'html' },
+    run = 'make install_jsregexp',
     config = function() require('config.luasnip') end
   },
 
