@@ -1,8 +1,8 @@
-local opts = { noremap = true, silent = true }
-local map = vim.api.nvim_set_keymap
-
-map('', '<f3>', ':NvimTreeToggle<cr>', opts)
-map('', '<f4>', ':NvimTreeFindFile<cr>', opts)
+local api = require('nvim-tree.api')
+local h = require('helpers')
+local map = vim.keymap.set
+-- local autocmd = vim.api.nvim_create_autocmd
+local icons = h.icons.nerd_tree
 
 require('nvim-tree').setup {
   auto_reload_on_write = true,
@@ -23,12 +23,12 @@ require('nvim-tree').setup {
   view = {
     adaptive_size = false,
     centralize_selection = false,
-    width = 40,
     side = 'left',
     preserve_window_proportions = false,
     number = false,
     relativenumber = false,
-    signcolumn = 'yes',
+    signcolumn = 'no',
+    width = 40,
     float = {
       enable = false,
       quit_on_focus_loss = true,
@@ -63,7 +63,7 @@ require('nvim-tree').setup {
     },
     icons = {
       webdev_colors = true,
-      git_placement = 'before',
+      git_placement = 'after',
       padding = ' ',
       symlink_arrow = ' ➛ ',
       show = {
@@ -73,27 +73,27 @@ require('nvim-tree').setup {
         git = false,
       },
       glyphs = {
-        default = '', --   
-        symlink = '',
-        bookmark = '', --   
+        default = icons.default,
+        symlink = icons.symlink,
+        bookmark = icons.bookmark,
         folder = {
-          arrow_closed = '', --   
-          arrow_open = '', --   
-          default = '',
-          open = '',
-          empty = '', -- 
-          empty_open = '', -- 
-          symlink = '', -- 
-          symlink_open = '' -- 
+          arrow_closed = icons.folder.arrow_closed,
+          arrow_open = icons.folder.arrow_open,
+          default = icons.folder.default,
+          open = icons.folder.open,
+          empty = icons.folder.empty,
+          empty_open = icons.folder.empty_open,
+          symlink = icons.folder.symlink,
+          symlink_open = icons.folder.symlink_open,
         },
         git = {
-          unstaged = '', -- •
-          staged = '',
-          unmerged = '',
-          renamed = '➜',
-          untracked = '',
-          deleted = '', --  
-          ignored = '',
+          unstaged = icons.git.unstaged,
+          staged = icons.git.staged,
+          unmerged = icons.git.unmerged,
+          renamed = icons.git.renamed,
+          untracked = icons.git.untracked,
+          deleted = icons.git.deleted,
+          ignored = icons.git.ignored,
         },
       },
     },
@@ -124,23 +124,31 @@ require('nvim-tree').setup {
       max = vim.diagnostic.severity.ERROR,
     },
     icons = {
-      hint = '',
-      info = '',
-      warning = '',
-      error = '',
+      error = h.icons.error,
+      warning = h.icons.warn,
+      hint = h.icons.hint,
+      info = h.icons.info,
     },
   },
   filters = {
     dotfiles = false,
     git_clean = false,
     no_buffer = false,
-    custom = {},
-    exclude = {},
+    custom = {
+      '^.git$',
+      'node_modules',
+    },
+    exclude = {
+      '.env',
+      'database.yml',
+      '.key'
+    },
   },
   filesystem_watchers = {
     enable = true,
     debounce_delay = 50,
     ignore_dirs = {
+      '.git',
       'node_modules',
     },
   },
@@ -222,20 +230,52 @@ require('nvim-tree').setup {
   },
 }
 
-local function open_nvim_tree(data)
-  local directory = vim.fn.isdirectory(data.file) == 1
-  local real_file = vim.fn.filereadable(data.file) == 1
-  local no_name = data.file == '' and vim.bo[data.buf].buftype == ''
+-- local function open_nvim_tree(data)
+--   local directory = vim.fn.isdirectory(data.file) == 1
+--   local real_file = vim.fn.filereadable(data.file) == 1
+--   local no_name = data.file == '' and vim.bo[data.buf].buftype == ''
+--
+--   if real_file and not no_name then
+--     return
+--   end
+--
+--   if directory then
+--     vim.cmd.cd(data.file)
+--   end
+--
+--   api.tree.open({ focus = true, find_file = true })
+-- end
 
-  if real_file and not no_name then
-    return
+-- local function collapse_to_root()
+--   local node = api.tree.get_node_under_cursor()
+--
+--   while node and node.parent do
+--     api.node.collapse(node)
+--     node = node.parent
+--   end
+-- end
+
+local function collapse_current()
+  local node = api.tree.get_node_under_cursor()
+
+  if node then
+    if node.type == 'directory' and node.open then
+      api.node.collapse(node)
+    elseif node.parent then
+      api.node.collapse(node.parent)
+    end
   end
-
-  if directory then
-    vim.cmd.cd(data.file)
-  end
-
-  require('nvim-tree.api').tree.toggle({ focus = true, find_file = true })
 end
 
-vim.api.nvim_create_autocmd({ 'VimEnter' }, { callback = open_nvim_tree })
+-- autocmd({ 'VimEnter' }, { callback = open_nvim_tree })
+
+map('n', '<f3>', '<cmd>NvimTreeToggle<cr>', { desc = 'NvimTree: Toggle' })
+map('n', '<f4>', '<cmd>NvimTreeFindFile<cr>', { desc = 'NvimTree: Find Current File' })
+map('n', 'w', collapse_current, { desc = 'NvimTree: Collapse Current Node' })
+
+local view_width = require('nvim-tree').config.view.width
+
+vim.keymap.set('n', '<leader><f3>', function()
+  view_width = (view_width == 40) and 60 or 40
+  vim.cmd('NvimTreeResize ' .. view_width)
+end, { desc = 'Toggle NvimTree width' })

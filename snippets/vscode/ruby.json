@@ -1,0 +1,6 @@
+{
+  "Add Debugger": {
+    "prefix": "d",
+    "body": "debugger"
+  }
+}

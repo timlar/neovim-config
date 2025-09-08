@@ -1,29 +1,26 @@
 {
-  "template": {
+  "Add <template /> block": {
     "prefix": "template",
     "body": [
       "<template>",
       "\t$0",
       "</template>"
-    ],
-    "description": "<template> element"
+    ]
   },
-  "script": {
+  "Add <script setup lang=\"ts\" /> block": {
     "prefix": "script",
     "body": [
       "<script setup lang=\"ts\">",
       "$0",
       "</script>"
-    ],
-    "description": "<script> element"
+    ]
   },
-  "styleLang": {
+  "Add <style scoped /> block": {
     "prefix": "style",
     "body": [
       "<style scoped>",
       "\t$0",
       "</style>"
-    ],
-    "description": "<style> element"
+    ]
   }
 }

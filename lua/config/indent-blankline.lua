@@ -1,12 +1,10 @@
-local highlight = { 'Whitespace' }
-
 require('ibl').setup {
   indent = {
-    char = '┆', -- ┆ ╎
-    highlight = highlight
+    char = '┆',
+    highlight = { 'Whitespace' }
   },
   whitespace = {
-    highlight = highlight,
+    highlight = { 'Whitespace' },
   },
   scope = {
     show_start = false,

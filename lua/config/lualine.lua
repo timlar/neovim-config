@@ -1,11 +1,16 @@
+local h = require('helpers')
+local icons = h.icons.lualine
+
 require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'gruvbox',
-    component_separators = { left = '', right = '' },
-    section_separators = { left = '', right = '' },
+    component_separators = icons.component_separators,
+    section_separators = icons.section_separators,
     disabled_filetypes = {},
+    ignore_focus = {},
     always_divide_middle = true,
+    always_show_tabline = false,
     globalstatus = false,
     refresh = {
       statusline = 1000,
@@ -16,20 +21,27 @@ require('lualine').setup {
   sections = {
     lualine_a = { 'mode' },
     lualine_b = {
-      { 'b:gitsigns_head', icon = '' },
-      'diff',
+      {
+        'branch',
+        icon = icons.branch,
+      },
+      { 'diff' },
       {
         'diagnostics',
-        symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
+        symbols = icons.symbols,
         colored = true,
+        separator = nil,
       }
     },
     lualine_c = {
-      { 'filename', path = 1 }
+      {
+        'filename',
+        path = 1,
+      }
     },
-    lualine_x = { 'encoding', 'fileformat', 'filetype' },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' }
+    lualine_x = {},
+    lualine_y = { 'encoding', 'fileformat', 'filetype' },
+    lualine_z = { 'progress', 'location' }
   },
   inactive_sections = {
     lualine_a = {},
@@ -41,14 +53,7 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {
-    -- lualine_a = { { 'tabs', mode = 2 } },
-    -- lualine_b = {},
-    -- lualine_c = {},
-    -- lualine_x = {},
-    -- lualine_y = {},
-    -- lualine_z = {}
-  },
+  tabline = {},
   winbar = {},
   inactive_winbar = {},
   extensions = { 'nvim-tree' }

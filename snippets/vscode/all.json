@@ -1,0 +1,6 @@
+{
+  "Comment Line": {
+    "prefix": "cc",
+    "body": "$LINE_COMMENT -- ${1} --"
+  }
+}

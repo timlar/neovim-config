@@ -1,259 +1,120 @@
-vim.o.filetype = 'off' -- Disable filetypes
+local opt = vim.opt
+
+vim.cmd('filetype on')
 
 vim.g.loaded_matchparen = 1 -- Disable highlighting of matching brackets
-vim.g.macvim_skip_cmd_opt_movement = 1
+
 vim.g.markdown_fenced_languages = {
-  'bash', 'sh', 'config', 'css', 'dockerfile', 'git', 'gitconfig', 'html', 'javascript', 'ruby', 'sass', 'scss', 'css', 'spec',
-  'sql', 'typescript', 'vue', 'xhtml', 'yaml', 'zsh'
+  'bash', 'sh', 'config', 'css', 'dockerfile', 'git', 'gitconfig', 'html', 'javascript',
+  'ruby', 'sass', 'scss', 'css', 'spec', 'sql', 'typescript', 'vue', 'xhtml', 'yaml', 'zsh'
 }
 
 vim.cmd 'filetype plugin on'
 vim.cmd 'filetype plugin indent on'
 vim.cmd 'syntax on'
-
-vim.cmd 'colorscheme gruvbox'
-
--- Improve performance
-vim.cmd 'syn sync maxlines=256' -- 200
-vim.cmd 'syn sync minlines=256' -- 50
-
--- vim.cmd 'syn match markdownError "\w\@<=\w\@="' -- Error pattern without the underscore
-
+vim.cmd 'syn sync maxlines=256'
+vim.cmd 'syn sync minlines=0'
 vim.cmd 'nnoremap * *N' -- Do not go to the next result when highlighting
 
-vim.o.shortmess = vim.o.shortmess..'I' -- Disable 'Children of Uganda'
+vim.cmd.colorscheme('gruvbox')
 
-vim.o.modeline = false
-vim.wo.cursorline = false
-vim.bo.synmaxcol = 256
+vim.filetype.add({ extension = { nomad = 'hcl' } })
 
-vim.o.list = true
-vim.o.listchars = [[tab:→\ ,trail:·,nbsp:·,extends:❯,precedes:❮]]
+-- Interface Settings
+opt.shortmess = 'filnxtToOCFIc' -- Reduce and shorten messages in the command area
+opt.laststatus = 2              -- Always show status line
+opt.cmdheight = 2               -- Height of command line
+opt.signcolumn = 'yes'          -- Always show sign column
+opt.ruler = true                -- Show cursor position
+opt.showmode = true             -- Show current mode
+opt.showcmd = true              -- Show (partial) command in status line
+opt.visualbell = false          -- Disable bell sound
 
-vim.o.sessionoptions = 'curdir,buffers,tabpages,folds,options' -- Sessions
+-- Navigation, scrolling, and cursor behavior
+opt.cursorline = false    -- Disable cursor line highlight
+opt.scrolljump = 0        -- Number of lines to scroll when cursor moves off screen
+opt.scrolloff = 0         -- Minimal number of screen lines to keep above and below the cursor
+opt.sidescrolloff = 0     -- Minimal number of columns to keep left and right of the cursor
+opt.sidescroll = 0        -- Number of columns to scroll horizontally when cursor moves off screen
+opt.mouse = 'a'           -- Enable mouse in all modes
+opt.mousemodel = 'popup'  -- Use popup for mouse selection
+opt.virtualedit = 'block' -- Allow cursor beyond end of line in visual block mode
 
-vim.bo.keymap = 'russian-jcukenwin'
-vim.o.langmap = 'ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz'
+-- Search settings
+opt.ignorecase = true -- Ignore case in search patterns
+opt.smartcase = true  -- Make search case-sensitive only when the pattern contains uppercase letters
+opt.hlsearch = true   -- Highlight search matches
+opt.incsearch = true  -- Incremental search
 
-vim.bo.spelllang = 'ru_yo,en_us'
+-- Text display options
+opt.listchars = 'tab:→\\ ,trail:·,nbsp:·,extends:❯,precedes:❮'
+opt.synmaxcol = 256 -- Max column for syntax highlighting
+opt.list = true     -- Show special characters
+opt.number = true   -- Show line numbers
 
-vim.o.fileformats = 'unix,mac,dos'
-vim.o.fileencodings = 'utf8,cp1251'
-vim.bo.fileformat = 'unix'
-vim.o.encoding = 'utf-8'
+-- Formatting and editing
+opt.modeline = false                -- Disable modelines for security
+opt.whichwrap = 'b,s'               -- Disables line break when the current line ends
+opt.wrap = false                    -- Disable line wrapping
+opt.linebreak = true                -- Wrap lines at convenient points (does not work if wrap=false)
+opt.autoindent = true               -- Copy indent from current line
+opt.smartindent = true              -- Smart autoindenting
+opt.tabstop = 2                     -- Number of spaces a <Tab> counts for
+opt.shiftwidth = 2                  -- Size of indent
+opt.softtabstop = 2                 -- Number of spaces for <Tab> in insert mode
+opt.smarttab = true                 -- Use shiftwidth for <Tab> at the start of a line
+opt.expandtab = true                -- Use spaces instead of tabs
+opt.shiftround = true               -- Round indent to nearest shiftwidth
+opt.iskeyword = '@,48-57,_,192-255' -- Define "word" boundaries
+opt.backspace = 'indent,eol,start'  -- Backspace through everything in insert mode
 
-vim.bo.iskeyword = '@,48-57,_,192-255' -- Fix: It needs for define correct position of the word when press 'w', 'b' or '*'
-vim.o.backspace = 'indent,eol,start'
-vim.o.whichwrap = 'b,s' -- Disable transition to a new line when line ends
+opt.formatoptions = vim.bo.formatoptions:gsub('o', '') .. 'j' -- Remove auto comment on new line and add comment leader when joining lines
 
-vim.wo.number = true -- set relativenumber " /!\ SLOW /!\
+-- Language, encoding, and input
+opt.fileformats = 'unix,mac,dos' -- Recognize line endings from Unix (LF), Mac (CR), and DOS/Windows (CRLF)
+opt.fileencodings = 'utf8'       -- Try to open files using UTF-8 encoding
+opt.fileformat = 'unix'          -- Default file format
+opt.iminsert = 0                 -- Start with Latin keyboard
+opt.imsearch = 0                 -- Search with Latin keyboard
 
-vim.wo.wrap = false
+-- Clipboard
+opt.clipboard = 'unnamedplus' -- Use system clipboard
 
-vim.o.virtualedit = ''
+-- Buffers, history, sessions
+opt.history = 128   -- Command-line history length
+opt.autoread = true -- Auto reload file if changed outside
+opt.sessionoptions = 'curdir,buffers,tabpages,folds,options' -- What to save in sessions
 
--- folding
-vim.wo.foldenable = true
-vim.wo.foldmethod = 'manual' -- 'syntax' or 'indent'
-vim.o.foldlevel = 0
-vim.o.foldlevelstart = 99 -- open all folds when open file
-vim.o.fillchars = vim.o.fillchars .. 'fold:-'
+-- Undo, swap, backup
+opt.undofile = true   -- Enable persistent undo
+opt.undolevels = 2048 -- Undo levels
+opt.backup = false    -- Don't use backup files
+opt.swapfile = false  -- Don't use swap files
+opt.undodir = vim.fn.stdpath('config') .. '/undo' -- Undo directory
 
-vim.o.mouse = 'a'
-vim.o.mousemodel = 'popup'
+-- Folding
+opt.foldenable = true                            -- Enable folding
+opt.foldlevel = 0                                -- All folds closed by default
+opt.foldlevelstart = 99                          -- Open all folds on file open
+opt.fillchars = 'fold:-'                         -- Char for closed folds
+opt.foldmethod = 'expr'                          -- Manual fold method
+opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- Sets the folding method to use Tree-sitter expressions for better code folding
 
-vim.o.lazyredraw = true
--- vim.o.ttyfast = true
+-- Window splitting
+opt.equalalways = false -- Do not equalize split sizes automatically
+opt.splitbelow = true   -- Horizontal splits below
+opt.splitright = true   -- Vertical splits right
 
-vim.o.ignorecase = true
-vim.o.hlsearch = true
-vim.o.incsearch = true
+-- Parenthesis and match highlighting
+opt.showmatch = true -- Highlight matching brackets
+opt.matchtime = 2    -- Time to show matching (in tenths of a second)
 
-vim.bo.iminsert = 0 -- Latin keyboard by default
-vim.bo.imsearch = 0
+-- Completion
+opt.completeopt = 'noinsert,menuone,noselect' -- Completion behavior
 
-vim.o.laststatus = 2 -- Always show command line
+-- Performance
+opt.updatetime = 250 -- Time in ms for CursorHold events, LSP etc
+opt.ttimeoutlen = 0  -- Timeout for key codes
 
-vim.o.scrolljump = 0
-vim.o.scrolloff = 0
-
-vim.o.splitbelow = true
-vim.o.splitright = true
-
-vim.o.equalalways = false
-
--- vim.o.showtabline = 2 -- Always show tabs
-
-vim.o.history = 128
-
-vim.o.undofile = true
-vim.o.undolevels = 2048
-vim.o.undodir = vim.fn.stdpath('config') .. '/undo'
-
-vim.o.backup = false
-vim.bo.swapfile = false
-
-vim.o.visualbell = false
-
-vim.o.ruler = true
-
-vim.o.showmode = true
-vim.o.showcmd = true
-vim.o.showmatch = true
-vim.o.matchtime = 2
-
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.softtabstop = 2
-vim.o.smarttab = true
-vim.o.expandtab = true
-vim.o.shiftround = true
-
-vim.bo.autoindent = true
-vim.bo.smartindent = true
-
-vim.o.autoread = true
-
-vim.o.completeopt = 'noinsert,menuone,noselect'
-
-vim.o.scrolloff = 0
-vim.o.sidescrolloff = 0
-vim.o.sidescroll = 0
-
-vim.bo.formatoptions = vim.bo.formatoptions:gsub('o', '')
-vim.bo.formatoptions = vim.bo.formatoptions .. 'j' -- Remove a comment leader when joining lines
-
--- vim.wo.colorcolumn = '+1'
-vim.bo.textwidth = 120
-
-vim.wo.linebreak = true
-
-vim.o.cmdheight = 2
-
-vim.wo.signcolumn = 'yes' -- Always show the signcolumn
-
-vim.o.updatetime = 250
-vim.o.ttimeoutlen = 0
-
-if vim.fn.substitute(vim.fn.system('uname'), '\n', '', '') == 'Darwin' then
-  vim.o.clipboard = 'unnamedplus' -- Use system clipboard
-end
-
--- Set current directory as root
-vim.o.autochdir = false
-
-vim.diagnostic.config({
-  virtual_text = false,
-  update_in_insert = true,
-  float = {
-    border = 'rounded',
-    header = '',
-    prefix = '',
-    source = 'always',
-  }
-})
-
-vim.cmd [[
-  augroup SetRootDirectory
-    autocmd VimEnter * silent! lcd %:p:h
-  augroup END
-]]
-
--- Remember cursor position
-vim.cmd [[
-  augroup RememberCursorPosition
-    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"zz" | endif
-  augroup END
-]]
-
--- Don't show tildas on empty lines
-vim.cmd [[
-  hi NonText guifg=bg
-]]
-
--- Fix: Set filetype for Vue files
-vim.cmd [[
-  augroup Vue
-    au BufNewFile,BufRead *.vue setlocal filetype=vue
-  augroup END
-]]
-
--- Gruvbox color theme fixes
-vim.cmd [[
-  hi! Comment cterm=italic gui=italic
-  hi! CursorLine ctermbg=none guibg=none
-  hi! LineNr guibg=none
-  hi! SignColumn guibg=none
-  hi! Underlined cterm=none gui=none
-  hi! link VertSplit Whitespace
-
-  hi! DiagnosticUnderlineError cterm=undercurl gui=undercurl
-  hi! DiagnosticUnderlineHint cterm=undercurl gui=undercurl
-  hi! DiagnosticUnderlineInfo cterm=undercurl gui=undercurl
-  hi! DiagnosticUnderlineWarn cterm=undercurl gui=undercurl
-
-  hi! DiagnosticSignError guifg=#fb4934 guibg=none " was linked to GruvboxRedSign
-  hi! DiagnosticSignHint guifg=#8ec07c guibg=none " was linked to GruvboxAquaSign
-  hi! DiagnosticSignInfo guifg=#83a598 guibg=none " was linked to GruvboxBlueSign
-  hi! DiagnosticSignWarn guifg=#fabd2f guibg=none " was linked to GruvboxYellowSign
-]]
-
--- gitsigns
--- vim.cmd [[
---   hi! GitSignsAdd guibg=none ctermbg=none
---   hi! GitSignsChange guibg=none ctermbg=none
---   hi! GitSignsDelete guibg=none ctermbg=none
---   hi! GitSignsChangeDelete guibg=none ctermbg=none
--- ]]
-
--- nvim-lspconfig: gruvbox colortheme fixes
-vim.cmd [[
-  hi! NormalFloat guibg=none
-  hi! FloatBorder guifg=gray guibg=none
-]]
-
--- nvim-tree
--- A list of groups can be found at `:h nvim-tree-highlight`
--- hi! link NvimTreeFolderIcon Directory
--- hi! link NvimTreeFolderName Directory
--- hi! link NvimTreeFolderArrowClosed Folded
--- hi! link NvimTreeFolderArrowOpen Folded
--- hi! link NvimTreeIndentMarker VertSplit
--- hi! link NvimTreeRootFolder WarningSign
--- hi! link NvimTreeWindowPicker lualine_a_insert
--- hi! link NvimTreeWinSeparator VertSplit
--- hi! link NvimTreeEndOfBuffer NonText
-vim.cmd [[
-  hi! link NvimTreeIndentMarker VertSplit
-  hi! link NvimTreeWinSeparator VertSplit
-  hi! link NvimTreeWindowPicker lualine_a_insert
-]]
-
--- telescope
-vim.cmd [[
-  hi! link TelescopeMatching Label
-]]
-
--- Temporarily disable HTML error highlighting inside vue templates
--- vim.cmd 'hi Error guibg=none'
--- vim.cmd 'hi htmlError guibg=none'
-
--- Highlight specific words
--- vim.cmd [[
---   augroup HighlightDebugger
---     au BufEnter *.rb match error "\<\(binding.pry\|focus: true\|:focus\)\>"
---     au BufEnter *.js match error "\<debugger\>"
---   augroup END
--- ]]
-
--- :call SynStack()
--- vim.cmd [[
---   function! SynStack()
---     if !exists("*synstack")
---       return
---     endif
---     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
---   endfunc
--- ]]
-
--- :let s = synID(line('.'), col('.'), 1) | echo synIDattr(s, 'name') . ' -> ' . synIDattr(synIDtrans(s), 'name')
+-- Directory management
+opt.autochdir = false -- Do not auto change working directory

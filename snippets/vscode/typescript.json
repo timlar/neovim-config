@@ -1,21 +1,21 @@
 {
-  "debugger": {
-    "prefix": "dd",
+  "Add Debugger": {
+    "prefix": "d",
     "body": "debugger"
   },
-  "console.log": {
+  "Add console.log()": {
     "prefix": "cl",
     "body": "console.log(${0})"
   },
-  "console.log a variable": {
-    "prefix": "cv",
+  "Add console.log() with arrow": {
+    "prefix": "ca",
     "body": "console.log('--> ${1}:', ${0})"
   },
-  "console.dir": {
+  "Add console.dir()": {
     "prefix": "cd",
     "body": "console.dir(${0})"
   },
-  "console.table": {
+  "Add console.table()": {
     "prefix": "ct",
     "body": "console.table(${0})"
   }

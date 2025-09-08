@@ -1,58 +1,4 @@
-local opts = {
-  install = { colorscheme = { 'gruvbox' } },
-  checker = {
-    enabled = false,
-  },
-  change_detection = {
-    enabled = false,
-    notify = false,
-  },
-  ui = {
-    -- border = 'rounded',
-    icons = {
-      ft = '',
-      lazy = '󰂠 ',
-      loaded = ' ',
-      not_loaded = ' ',
-    },
-  },
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        '2html_plugin',
-        'bugreport',
-        'compiler',
-        'ftplugin',
-        'getscript',
-        'getscriptPlugin',
-        'gzip',
-        'logipat',
-        'matchit',
-        'matchparen',
-        'netrw',
-        'netrwFileHandlers',
-        'netrwPlugin',
-        'netrwSettings',
-        'optwin',
-        'rplugin',
-        'rrhelper',
-        'spellfile_plugin',
-        'synmenu',
-        'syntax',
-        'tar',
-        'tarPlugin',
-        'tohtml',
-        'tutor',
-        'vimball',
-        'vimballPlugin',
-        'zip',
-        'zipPlugin',
-      },
-    },
-  },
-}
-
-require('lazy').setup({
+return {
   {
     'ellisonleao/gruvbox.nvim',
     lazy = false,
@@ -62,55 +8,62 @@ require('lazy').setup({
 
   {
     'numToStr/Comment.nvim',
-    event = 'BufRead',
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
     config = function() require('config.comment') end
   },
 
-  { 'tpope/vim-abolish', event = 'BufRead' },
-  { 'tpope/vim-fugitive', event = 'BufRead' },
-  { 'tpope/vim-repeat', event = 'BufRead' },
-  { 'tpope/vim-surround', event = 'BufRead' },
-  { 'wellle/targets.vim', event = 'BufRead' },
-
   {
-    'ntpeters/vim-better-whitespace',
-    event = 'BufRead',
-    config = function() require('config.vim-better-whitespace') end
-  },
-
-  { 'tpope/vim-endwise', ft = { 'ruby' } },
-  { 'tpope/vim-rails', ft = { 'ruby' } },
-
-  {
-    'kyazdani42/nvim-tree.lua',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
-    config = function() require('config.nvim-tree') end
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    event = 'BufReadPost',
+    config = function() require('config.todo-comments') end
   },
 
   {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
-    config = function() require('config.lualine') end
+    'echasnovski/mini.nvim',
+    version = false,
+    event = 'BufReadPost',
+    config = function() require('config.mini') end
+  },
+
+  {
+    'cappyzawa/trim.nvim',
+    event = 'BufReadPost',
+    config = function() require('config.trim') end
+  },
+
+  { 'RRethy/nvim-treesitter-endwise', ft = { 'ruby' } },
+
+  {
+    'tpope/vim-rails',
+    ft = { 'ruby' },
+    config = function() require('config.vim-rails') end
   },
 
   {
     'lewis6991/gitsigns.nvim',
-    event = 'BufRead',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function() require('config.gitsigns') end
   },
 
   {
-    'lukas-reineke/indent-blankline.nvim',
-    event = 'BufRead',
-    config = function() require('config.indent-blankline') end
+    'pwntester/octo.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function() require('config.octo') end
   },
 
-  -- {
-  --   'norcalli/nvim-colorizer.lua',
-  --   config = function() require('config.nvim-colorizer') end
-  -- },
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    event = 'BufReadPost',
+    config = function() require('config.indent-blankline') end
+  },
 
   {
     'lifepillar/pgsql.vim',
@@ -119,53 +72,93 @@ require('lazy').setup({
   },
 
   {
-    'AndrewRadev/splitjoin.vim',
-    event = 'BufRead',
-    config = function() require('config.splitjoin') end
+    'nvim-tree/nvim-web-devicons',
+    config = function() require('config.devicons') end
+  },
+
+  {
+    'nvim-tree/nvim-tree.lua',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function() require('config.nvim-tree') end
+  },
+
+  {
+    'nvim-lualine/lualine.nvim',
+    event = 'VeryLazy',
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    config = function() require('config.lualine') end
   },
 
   {
     'nvim-telescope/telescope.nvim',
-    event = 'BufRead',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    event = 'BufReadPost',
+    keys = { '<leader>fg', '<leader>ff' },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      {
+        'nvim-telescope/telescope-live-grep-args.nvim' ,
+        version = "^1.0.0",
+      },
+    },
     config = function() require('config.telescope') end
   },
 
   {
-    'junegunn/vim-easy-align',
-    event = 'BufRead',
-    config = function() require('config.vim-easy-align') end
-  },
-
-  {
-    'diepm/vim-rest-console',
-    ft = { 'rest' },
-    config = function() require('config.vim-rest-console') end
+    'kevinhwang91/nvim-bqf',
+    event = 'BufReadPost',
+    config = function() require('config.bqf') end
   },
 
   {
     'benmills/vimux',
-    event = 'BufRead',
+    event = 'BufReadPost',
     config = function() require('config.vimux') end
   },
+
+  -- {
+  --   'MeanderingProgrammer/render-markdown.nvim',
+  --   ft = { 'markdown' },
+  --   dependencies = {
+  --     'nvim-treesitter/nvim-treesitter',
+  --     'nvim-tree/nvim-web-devicons',
+  --   },
+  --   config = function() require('config.render-markdown') end
+  -- },
+
+  -- {
+  --   'olimorris/codecompanion.nvim',
+  --   event = 'BufReadPost',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-treesitter/nvim-treesitter',
+  --   },
+  --   config = function() require('config.codecompanion') end
+  -- },
 
   -- Linters and Formatters --------------------------------------------------------------------------------------------
 
   {
     'L3MON4D3/LuaSnip',
-    ft = { 'ruby', 'rspec', 'javascript', 'typescript', 'vue', 'css', 'scss', 'sass', 'html' },
-    run = 'make install_jsregexp',
+    version = 'v2.*',
+    ft = { 'ruby', 'rspec', 'javascript', 'typescript', 'vue', 'html', 'lua' },
+    build = "make install_jsregexp",
     config = function() require('config.luasnip') end
   },
 
   {
     'neovim/nvim-lspconfig',
     lazy = true,
-    ft = { 'ruby', 'rspec', 'javascript', 'typescript', 'vue', 'json', 'yaml', 'css', 'scss', 'sass' },
+    ft = {
+      'ruby', 'rspec', 'javascript', 'typescript', 'vue', 'graphql', 'json', 'yaml',
+      'css', 'scss', 'sass', 'dockerfile', 'lua'
+    },
     dependencies = {
       'folke/lsp-colors.nvim',
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
+      'mason-org/mason-lspconfig.nvim',
+      {
+        'williamboman/mason.nvim',
+        config = function() require('config.mason') end
+      },
       {
         'hrsh7th/nvim-cmp',
         dependencies = {
@@ -176,7 +169,7 @@ require('lazy').setup({
           'hrsh7th/cmp-path',
           'saadparwaiz1/cmp_luasnip',
         },
-        config = function() require('config.nvim-cmp') end
+        config = function() require('config.cmp') end
       },
       {
         'nvimdev/guard.nvim',
@@ -188,7 +181,7 @@ require('lazy').setup({
         config = function() require('config.fidget') end
       },
     },
-    config = function() require('config.nvim-lspconfig') end
+    config = function() require('config.lspconfig') end
   },
 
   -- Syntax Highlighting -----------------------------------------------------------------------------------------------
@@ -196,18 +189,17 @@ require('lazy').setup({
   { 'chr4/nginx.vim', ft = { 'nginx' } },
   { 'ericpruitt/tmux.vim', ft = { 'tmux' } },
   { 'hashivim/vim-terraform', ft = { 'tf', 'hcl', 'tfvars', 'terraformrc', 'tfstate', 'terraform' } },
-  { 'keith/rspec.vim', ft = { 'rspec' } },
   { 'tbastos/vim-lua', ft = { 'lua' } },
   { 'fatih/vim-go', ft = { 'go' } },
 
   {
     'nvim-treesitter/nvim-treesitter',
-    event = 'BufRead',
+    event = 'BufReadPost',
     dependencies = {
-      'p00f/nvim-ts-rainbow',
+      -- 'p00f/nvim-ts-rainbow',
       'nvim-treesitter/nvim-treesitter-textobjects'
     },
-    -- build = ':TSUpdate',
+    build = ':TSUpdate',
     config = function() require('config.nvim-treesitter') end
   }
-}, opts)
+}
